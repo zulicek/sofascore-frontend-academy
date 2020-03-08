@@ -3,22 +3,35 @@
 <html>
     <head>
         <title>SofaScore Frontend Academy</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap&subset=latin-ext" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <header>
-            logo
-        </header>
         <main>
-            <form>
-                <div>
-                    <label>Username</label>
-                    <input type="text"/>
-                </div>
-                <div>Password</label>
-                    <input type="password"/>
-                </div>
-                <button>Login</button>
-            </form>
+            <div class="login-wrapper">
+                <form>
+                    <span class="logo-wrapper">
+                        <div class="logo">
+                            <div class="square border-black"></div>
+                            <div class="square background-black"></div>
+                            <div class="square border-white"></div>
+                        </div>
+                    </span>
+                    <span class="form-title">
+                        Log in
+                    </span>
+                    <div class="input-wrapper">
+                        <input type="text" name="username" placeholder="Username">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="password" name="pass" placeholder="Password">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </div>
+                    <button class="btn btn-inverse">Login</button>
+                </form>
+            </div>
         </main>
     </body>
 </html>
