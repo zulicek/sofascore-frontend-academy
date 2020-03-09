@@ -22,7 +22,6 @@ body {
     min-width: 128px;
     height: 48px;
     border-radius: 24px;
-    position: relative;
     z-index: 1;
     margin: 0 auto;
     cursor: pointer;
