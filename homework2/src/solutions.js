@@ -32,14 +32,15 @@ module.exports = {
    * Returns an object with the `getValue` and `setValue` methods, having `value` hidden from the outside.
    */
   createEncapsulatedObject() {
-    return {
-      setValue() {
+    const encapsulatedObject = () => {
+      let value = null;
+      return ({
+          setValue: (newValue) => value = newValue,
+          getValue: () => value
+        });
+      };
 
-      }, 
-      getValue() {
-          return this.value;
-      }
-   }
+    return encapsulatedObject()
   },
 
   /**
@@ -85,28 +86,45 @@ module.exports = {
    * Format should be `{day}-{month}-{fullYear}` (all numbers).
    * @param {Date} date
    */
-  formatDate(date) {},
+  formatDate(date) {
+    month = (date.getMonth() + 1).toString(),
+    day = date.getDate().toString(),
+    year = date.getFullYear().toString();
+    return [day, month, year].join('-');
+  },
 
   /**
    * Sorts the given `numberArray` in ascending order.
    * Use array `.sort` method. Sort is done in place so there is no need to return anything.
    * @param {number[]} numberArray
    */
-  sortNumberArray(numberArray) {},
+  sortNumberArray(numberArray) {
+    numberArray.sort(function(a, b){return a-b});;
+  },
 
   /**
    * Multiplies all the elements in the array by 2 _in place_
    * (edits the given array) and returns it.
    * @param {number[]} numberArray
    */
-  multiplyArrayByTwo(numberArray) {},
+  multiplyArrayByTwo(numberArray) {
+    numberArray.forEach(function(elem,i) {
+      numberArray[i] = elem * 2;
+    });
+    return numberArray;
+  },
 
   /**
    * Multiplies all the elements in the array by 2 and returns them
    * in a new array.
    * @param numberArray
    */
-  multiplyArrayByTwoNew(numberArray) {},
+  multiplyArrayByTwoNew(numberArray) {
+    const newNumberArray = numberArray.map(function(element) {
+      return element*2;
+    });
+    return newNumberArray;
+  },
 
   /**
    * Create two classes: `Person` and `Programmer`. `Programmer` class extends `Person`.
@@ -119,7 +137,32 @@ module.exports = {
    * @param {Function} callGetName
    * @param {Function} callGetLanguage
    */
-  classInheritance(callGetName, callGetLanguage) {},
+  classInheritance(callGetName, callGetLanguage) {
+    class Person {
+      constructor(name) {
+        this.name = name
+        this.getName = this.getName.bind(this)
+      }
+    
+      getName() {
+        callGetName(this.name);
+      }
+    }
+
+    class Programmer extends Person {
+      constructor(name, language) {
+        super(name);
+        this.language = language;
+        this.getLanguage = this.getLanguage.bind(this);
+      }
+
+      getLanguage() {
+        callGetLanguage(this.language);
+      }
+    }
+
+    return { Person, Programmer }    
+  },
 
   /**
    * EXTRA CREDIT TASK -> Closure trick with async. Async is not important here and has nothing to do with the solution.
@@ -133,10 +176,12 @@ module.exports = {
    * @param {Function} consumer
    */
   timeoutIncrement(consumer) {
-    for (var i = 1; i <= 3; i += 1) {
+    for (var i = 1; i <= 3; i += 1) (function(t) {
       setTimeout(() => {
         /* your function goes here, or instead of this function */
+        consumer(t)
       }, 1000)
-    }
+    })(i)
   },
+  
 }
