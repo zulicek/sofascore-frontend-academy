@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>SofaScore Frontend Academy</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap&subset=latin-ext" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="../normalize.css" />
+      <link rel="stylesheet" type="text/css" href="../typography.css" />
+      <link rel="stylesheet" type="text/css" href="pokemons.css" />
+      <script src="script.js"></script>
+  </head>
+  <body>
+    <button onclick="getPokemons()">Fetch pokemons</button>
+
+    <div class="pokemons-wrapper"> 
+      <h1 class="title">Pokemoni</h1>
+      <ul id="pokemons" class="accordion-list">
+        <li class="accordion">
+          <div class="accordion-item">
+            <h2 class="title">Primjer</h2>
+            <div class="icon">+</div>
+          </div>
+          <div class="accordion-content">
+            <p>Info o pokemonu</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
