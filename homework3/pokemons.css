@@ -1,4 +1,4 @@
-.pokemons-wrapper {
+#pokemons {
     max-width: 500px;
     margin: 0 auto;
 }
@@ -76,4 +76,40 @@
 
 .accordion.opened .accordion-content {
     max-height: 100%;
+}
+
+.pagination {
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination li {
+    display: flex;
+}
+
+.pagination .page-link {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    color: var(--black);
+    line-height: 1.42857143;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.pagination .page-link:focus, .pagination .page-link:hover, 
+.pagination .page-link:focus, .pagination .page-link:hover,
+.pagination > li > span:focus, .pagination > li > span:hover {
+    color: var(--black);
+    background-color: rgba(119, 84, 252, .1);
+}
+
+
+.pagination .page-link:disabled {
+    color: #b0b0b0;
+    background-color: #f6f6f6;
 }

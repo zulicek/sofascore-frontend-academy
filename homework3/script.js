@@ -1,14 +1,31 @@
-function getPokemons() {
-  const url = 'https://pokeapi.co/api/v2/pokemon'
-  const pokemonsList = document.getElementById("pokemons");
+function getPrevPokemons(url, previousButton, nextButton, currentPage) {
+  getPokemons(url, previousButton, nextButton);
+  currentPage.innerHTML = parseInt(currentPage.innerHTML) - 1;
+}
+
+
+function getNextPokemons(url, previousButton, nextButton, currentPage) {
+  getPokemons(url, previousButton, nextButton);
+  currentPage.innerHTML = parseInt(currentPage.innerHTML) + 1;
+}
+
+
+function getPokemons(url, previousButton, nextButton) {
+  const pokemons = document.getElementById("pokemons");
+  const pokemonsList = pokemons.querySelector('.accordion-list');
+
+  pokemonsList.innerHTML = '';
   
   fetch(url)
     .then(response => {
       if (response.status === 200) {
         response.json().then(decodedData => {
+
+          console.log(decodedData)
+          //add pokemon accordions
           decodedData.results.forEach(data => {
 
-            //add pokemon accordion
+            
             let listItem = document.createElement("li");
             listItem.classList.add("accordion");
             listItem.innerHTML = 
@@ -22,6 +39,16 @@ function getPokemons() {
 
             pokemonsList.append(listItem);
           })
+
+          //add previous and next
+          previousButton.setAttribute("data-api-route", decodedData.previous)
+          if (!decodedData.previous) previousButton.disabled = true;
+          else previousButton.disabled = false;
+
+          nextButton.setAttribute("data-api-route", decodedData.next)
+          if (!decodedData.next) nextButton.disabled = true;
+          else nextButton.disabled = false;
+    
         })
       } else {
         console.log('Response status code is not OK!')
@@ -36,7 +63,7 @@ function getPokemonInfo(el, url) {
 
   if (el.classList.contains("opened")) {
     el.classList.remove("opened");
-    
+
   } else {
     el.classList.add("opened");
     if (!el.querySelector(".accordion-content")) {
@@ -92,7 +119,26 @@ function getPokemonInfo(el, url) {
 
     }
   }
-
-  
-
 }
+
+
+
+
+document.addEventListener("DOMContentLoaded", function(){
+  const url = 'https://pokeapi.co/api/v2/pokemon';
+  const previousButton = document.querySelector('[aria-label="Previous"]');
+  const currentPage = document.querySelector('[aria-label="CurrentPage"]');
+  const nextButton = document.querySelector('[aria-label="Next"]');
+
+  previousButton.addEventListener("click", () => {
+    getPrevPokemons(previousButton.getAttribute("data-api-route"), previousButton, nextButton, currentPage);
+  })
+
+  nextButton.addEventListener("click", () => {
+    getNextPokemons(nextButton.getAttribute("data-api-route"), previousButton, nextButton, currentPage);
+  })
+
+
+
+  getPokemons(url, previousButton, nextButton);
+});
