@@ -27,15 +27,29 @@ function getPokemons(url, previousButton, nextButton) {
 
             
             let listItem = document.createElement("li");
-            listItem.classList.add("accordion");
-            listItem.innerHTML = 
+            let el = document.createElement("div");
+            el.classList.add("accordion");
+            el.innerHTML = 
               `<div class="accordion-item" data-atr>
                 <h2 class="title">${data.name}</h2>
-                <div class="icon">+</div>
+                <div class="icon"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
               </div>`
 
+            listItem.append(el);
+            
+            let deleteButton = document.createElement("button");
+            deleteButton.classList.add("delete-button");
+            deleteButton.setAttribute("aria-label", "Delete");
+            deleteButton.innerHTML = `<i class="fa fa-trash" aria-hidden="true"></i>`;
+
+            deleteButton.addEventListener("click", () => {
+              deletePokemon(listItem);
+            })
+
+            listItem.append(deleteButton);
+
             //get pokemon info on click
-            listItem.addEventListener("click", () => getPokemonInfo(listItem,data.url));
+            listItem.addEventListener("click", () => getPokemonInfo(el,data.url));
 
             pokemonsList.append(listItem);
           })
@@ -115,10 +129,12 @@ function getPokemonInfo(el, url) {
           }
         })
         .catch(console.error)
-
-
     }
   }
+}
+
+function deletePokemon(listItem) {
+  listItem.parentNode.removeChild(listItem);
 }
 
 
