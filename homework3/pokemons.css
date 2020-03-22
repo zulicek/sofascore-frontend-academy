@@ -3,6 +3,22 @@
     margin: 0 auto;
 }
 
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 32px 0;
+}
+
+.header-wrapper #return-deleted {
+    display: none;
+    margin: 0;
+}
+
+#pokemons.has-deleted #return-deleted{
+    display: inline-flex;
+}
+
 .accordion-list {
     list-style: none;
     margin: 0;
@@ -35,6 +51,7 @@
     align-items: center;
     margin-left: 2px;
     cursor: pointer;
+    -webkit-appearance: initial;
 }
 
 
