@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>SofaScore Frontend Academy</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap&subset=latin-ext" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="../normalize.css" />
-      <link rel="stylesheet" type="text/css" href="../typography.css" />
-      <link rel="stylesheet" type="text/css" href="pokemons.css" />
-      <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SofaScore Frontend Academy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap&subset=latin-ext"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="../normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../typography.css" />
+    <link rel="stylesheet" type="text/css" href="pokemons.css" />
+    <script src="render.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
   </head>
   <body>
-    <div id="pokemons"> 
-      
+    <div id="pokemons">
       <div class="header-wrapper">
         <h1 class="title">Pokemons</h1>
-        <button id="return-deleted" class="btn btn-primary">Return deleted</button>
+        <button id="return-deleted" class="btn btn-primary">
+          Return deleted
+        </button>
       </div>
-      <ul class="accordion-list">
-      </ul>
+      <ul class="accordion-list"></ul>
 
       <nav aria-label="navigation">
         <ul class="pagination">
