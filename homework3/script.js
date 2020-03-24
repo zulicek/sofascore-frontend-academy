@@ -101,7 +101,7 @@ const Pokemons = function() {
   }
 
   function deletePokemon(listItem) {
-    listItem.parentNode.removeChild(listItem);
+    listItem.style.display = "none";
   }
 
   previousButton.addEventListener("click", () => {
@@ -113,7 +113,7 @@ const Pokemons = function() {
   });
 
   returnButton.addEventListener("click", () => {
-    deleted.forEach(item => render(pokemonsList, item.outerHTML));
+    deleted.forEach(item => item.style.display = "flex");
     deleted = [];
     pokemons.classList.remove("has-deleted");
   });
