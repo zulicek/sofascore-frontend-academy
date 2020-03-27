@@ -1,0 +1,68 @@
+@import "./../../index.scss";
+
+
+li {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.accordion-list li:hover .accordion-item:hover {
+  opacity: 0.7;
+}
+
+.accordion {
+  font-family: $font-family-titles;
+  width: calc(100% - 38px);
+  height: 38px;
+  transition: height 1s ease-in-out;
+  overflow: hidden;
+  background-color: $primary-color;
+}
+
+.accordion-item {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 36px;
+  color: #fff;
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.accordion-item > .title {
+  margin: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.accordion-content {
+  padding: 0 16px;
+  background-color: #fbfbfb;
+  border: 1px solid #f0eeee;
+  -webkit-box-shadow: 10px 10px 34px -10px rgba(224, 224, 224, 1);
+  -moz-box-shadow: 10px 10px 34px -10px rgba(224, 224, 224, 1);
+  box-shadow: 10px 10px 34px -10px rgba(224, 224, 224, 1);
+}
+
+.accordion.opened {
+  height: 306px;
+}
+
+.accordion .icon {
+  transition: transform 1s ease-in;
+}
+
+.accordion.opened .icon {
+  transform: rotate(180deg);
+}
+
+
+@media (min-width: 576px) {
+  .accordion.opened {
+    height: 300px;
+  }
+
+  .accordion-content {
+    flex-direction: row;
+  }
+}
