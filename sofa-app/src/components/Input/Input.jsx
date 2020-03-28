@@ -2,7 +2,7 @@ import React from "react";
 
 export class Input extends React.Component {
     render() {
-      const { value, placeholder, onChange } = this.props
+      const { placeholder, onChange } = this.props
   
       return (
         <input

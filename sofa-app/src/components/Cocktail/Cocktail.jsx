@@ -26,7 +26,7 @@ export class Cocktail extends React.Component {
 
     return (
       <li onClick={this.toggleAccordion.bind(this)}>
-        <div className={`accordion${this.state.opened ? " opened" : ""}`}>
+        <div className={`accordion${this.state.opened ? "opened" : ""}`}>
             <div className="accordion-item">
                 <div
                     className="image-wrapper"

@@ -15,26 +15,34 @@ export class App extends React.Component {
       name: "",
       cocktails: [],
       isLoading: false,
-      error: null
+      error: null,
+      cocktailsShowing: [],
+      totalElements: 0,
+      page: 12,
+      perPage: 10
     };
 
     this.onSearchClick = this.onSearchClick.bind(this);
     this.getCocktails = this.getCocktails.bind(this);
   }
 
-  onSearchClick(newName) {
+  onSearchClick = newName => {
     this.setState({ name: newName });
     this.getCocktails(newName);
   }
 
-  getCocktails(newName) {
+  getCocktails = newName => {
     this.setState({ isLoading: true });
     axios
       .get(API + newName)
       .then(result =>
         this.setState({
           cocktails: result.data.drinks,
-          isLoading: false
+          isLoading: false,
+          page: 1,
+          totalElements: result.data.drinks.length,
+          pageCount: Math.ceil(result.data.drinks.length / this.state.perPage),
+          cocktailsShowing: result.data.drinks.slice(0, this.state.perPage)
         })
       )
       .catch(error =>
@@ -44,6 +52,16 @@ export class App extends React.Component {
         })
       );
   }
+
+  handlePageClick = newPage => {
+    this.setState({
+      cocktailsShowing: this.state.cocktails.slice(
+        newPage >  this.state.page ? this.state.page * this.state.perPage : (newPage-1) * this.state.perPage,
+        newPage >  this.state.page ? newPage * this.state.perPage : (this.state.page-1) * this.state.perPage
+      ),
+      page: newPage
+    });
+  };
 
   render() {
     return (
@@ -62,7 +80,8 @@ export class App extends React.Component {
           <div className="row">
             <div className="col-sm-12">
               <ul>
-                {this.state.cocktails.map((cocktail, index) => (
+                {this.state.cocktailsShowing.map((cocktail, index) => (
+                  /* console.log(this.state) */
                   <Cocktail
                     key={`${index}+${cocktail.idDrink}`}
                     name={cocktail.strDrink}
@@ -71,9 +90,42 @@ export class App extends React.Component {
                     glass={cocktail.strGlass}
                     instructions={cocktail.strInstructions}
                     image={cocktail.strDrinkThumb}
-                  /> 
+                  />
                 ))}
               </ul>
+              {this.state.cocktails.length != 0 && (
+                <div className="pagination">
+                  <button
+                    onClick={this.handlePageClick.bind(
+                      this,
+                      this.state.page - 1
+                    )}
+                    disabled={this.state.page <= 1}
+                    className="page-item"
+                  >
+                    <span aria-hidden="true">«</span>
+                    <span className="sr-only">Previous</span>
+                  </button>
+                  <span className="page-item">
+                    {this.state.page} /{" "}
+                    {Math.ceil(this.state.totalElements / this.state.perPage)}
+                  </span>
+                  <button
+                    onClick={this.handlePageClick.bind(
+                      this,
+                      this.state.page + 1
+                    )}
+                    disabled={
+                      this.state.page >=
+                      Math.ceil(this.state.totalElements / this.state.perPage)
+                    }
+                    className="page-item"
+                  >
+                    <span aria-hidden="true">»</span>
+                    <span className="sr-only">Next</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
