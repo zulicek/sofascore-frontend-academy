@@ -73,12 +73,12 @@ export class App extends React.Component {
         />
         <div className="container">
           <div className="row">
-            <div className="col-sm-10 offset-sm-1">
+            <div className="col-md-10 offset-md-1">
               <SearchForm onSearch={this.onSearchClick} />
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-12">
+            <div className="col-lg-8 offset-lg-2">
               <ul>
                 {this.state.cocktailsShowing.map((cocktail, index) => (
                   /* console.log(this.state) */
