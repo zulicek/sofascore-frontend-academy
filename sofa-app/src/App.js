@@ -4,6 +4,9 @@ import { IntroBanner } from "./components/IntroBanner/IntroBanner";
 import { SearchForm } from "./components/SearchForm/SearchForm";
 import axios from "axios";
 import { Cocktail } from "./components/Cocktail/Cocktail";
+import { Pagination } from "./components/Pagination/Pagination";
+import { Loader } from "./components/Loader/Loader";
+import { NoResults } from "./components/NoResults/NoResults";
 
 const API = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=";
 
@@ -25,6 +28,7 @@ export class App extends React.Component {
 
     this.onSearchClick = this.onSearchClick.bind(this);
     this.getCocktails = this.getCocktails.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   onSearchClick = newName => {
@@ -89,11 +93,7 @@ export class App extends React.Component {
           </div>
           <div className="row">
             <div className="col-lg-8 offset-lg-2">
-              {this.state.isLoading && (
-                <div className="spinner-wrapper">
-                  <img src="spinner.svg" />
-                </div>
-              )}
+              {this.state.isLoading && <Loader />}
               <ul>
                 {this.state.cocktailsShowing.map((cocktail, index) => (
                   <Cocktail
@@ -108,42 +108,15 @@ export class App extends React.Component {
                 ))}
               </ul>
               {this.state.showNoResults && !this.state.isLoading && (
-                <p className="no-results">
-                  No results containing your search term were found.
-                </p>
+                <NoResults />
               )}
               {this.state.cocktails.length > this.state.perPage && (
-                <div className="pagination">
-                  <button
-                    onClick={this.handlePageClick.bind(
-                      this,
-                      this.state.page - 1
-                    )}
-                    disabled={this.state.page <= 1}
-                    className="page-item"
-                  >
-                    <span aria-hidden="true">«</span>
-                    <span className="sr-only">Previous</span>
-                  </button>
-                  <span className="page-item">
-                    {this.state.page} /{" "}
-                    {Math.ceil(this.state.totalElements / this.state.perPage)}
-                  </span>
-                  <button
-                    onClick={this.handlePageClick.bind(
-                      this,
-                      this.state.page + 1
-                    )}
-                    disabled={
-                      this.state.page >=
-                      Math.ceil(this.state.totalElements / this.state.perPage)
-                    }
-                    className="page-item"
-                  >
-                    <span aria-hidden="true">»</span>
-                    <span className="sr-only">Next</span>
-                  </button>
-                </div>
+                <Pagination
+                  page={this.state.page}
+                  handlePageClick={this.handlePageClick}
+                  totalElements={this.state.totalElements}
+                  perPage={this.state.perPage}
+                />
               )}
             </div>
           </div>

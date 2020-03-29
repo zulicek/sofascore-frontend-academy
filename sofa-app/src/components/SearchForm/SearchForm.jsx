@@ -9,6 +9,7 @@ export class SearchForm extends React.Component {
     this.state = {
         name: ""
     };
+    
 
     this.handleChange = this.handleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);

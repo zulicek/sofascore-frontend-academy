@@ -1,46 +1,5 @@
 @import "./index.scss";
 
-.spinner-wrapper {
-  text-align: center;
-}
-
 ul {
   padding-left: 0;
-}
-
-.pagination {
-  padding-left: 0;
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 48px;
-
-  .page-item {
-    position: relative;
-    float: left;
-    padding: 6px 12px;
-    color: $text-color;
-    line-height: 1.42857143;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin-left: -1px;
-    &:focus,
-    &.hover,
-    > li > span:focus,
-    > li > span:hover {
-      background-color: rgba(119, 84, 252, 0.1);
-    }
-    &:disabled {
-      color: #b0b0b0;
-      background-color: #f6f6f6;
-    }
-  }
-}
-
-.no-results {
-  text-align: center;
-  font-size: 15px;
-  color: $text-color;
-  opacity: 0.5;
 }
