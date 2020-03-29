@@ -19,7 +19,8 @@ export class App extends React.Component {
       cocktailsShowing: [],
       totalElements: 0,
       page: 12,
-      perPage: 10
+      perPage: 10,
+      showNoResults: false
     };
 
     this.onSearchClick = this.onSearchClick.bind(this);
@@ -29,10 +30,14 @@ export class App extends React.Component {
   onSearchClick = newName => {
     this.setState({ name: newName });
     this.getCocktails(newName);
-  }
+  };
 
   getCocktails = newName => {
-    this.setState({ isLoading: true });
+    this.setState({
+      isLoading: true,
+      cocktailsShowing: [],
+      showNoResults: true
+    });
     axios
       .get(API + newName)
       .then(result =>
@@ -40,9 +45,10 @@ export class App extends React.Component {
           cocktails: result.data.drinks,
           isLoading: false,
           page: 1,
+          cocktailsShowing: result.data.drinks.slice(0, this.state.perPage),
+          showNoResults: false,
           totalElements: result.data.drinks.length,
-          pageCount: Math.ceil(result.data.drinks.length / this.state.perPage),
-          cocktailsShowing: result.data.drinks.slice(0, this.state.perPage)
+          pageCount: Math.ceil(result.data.drinks.length / this.state.perPage)
         })
       )
       .catch(error =>
@@ -51,13 +57,17 @@ export class App extends React.Component {
           isLoading: false
         })
       );
-  }
+  };
 
   handlePageClick = newPage => {
     this.setState({
       cocktailsShowing: this.state.cocktails.slice(
-        newPage >  this.state.page ? this.state.page * this.state.perPage : (newPage-1) * this.state.perPage,
-        newPage >  this.state.page ? newPage * this.state.perPage : (this.state.page-1) * this.state.perPage
+        newPage > this.state.page
+          ? this.state.page * this.state.perPage
+          : (newPage - 1) * this.state.perPage,
+        newPage > this.state.page
+          ? newPage * this.state.perPage
+          : (this.state.page - 1) * this.state.perPage
       ),
       page: newPage
     });
@@ -79,9 +89,13 @@ export class App extends React.Component {
           </div>
           <div className="row">
             <div className="col-lg-8 offset-lg-2">
+              {this.state.isLoading && (
+                <div className="spinner-wrapper">
+                  <img src="spinner.svg" />
+                </div>
+              )}
               <ul>
                 {this.state.cocktailsShowing.map((cocktail, index) => (
-                  /* console.log(this.state) */
                   <Cocktail
                     key={`${index}+${cocktail.idDrink}`}
                     name={cocktail.strDrink}
@@ -93,7 +107,12 @@ export class App extends React.Component {
                   />
                 ))}
               </ul>
-              {this.state.cocktails.length != 0 && (
+              {this.state.showNoResults && !this.state.isLoading && (
+                <p className="no-results">
+                  No results containing your search term were found.
+                </p>
+              )}
+              {this.state.cocktails.length > this.state.perPage && (
                 <div className="pagination">
                   <button
                     onClick={this.handlePageClick.bind(

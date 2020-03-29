@@ -12,7 +12,7 @@ li {
 .accordion {
   font-family: $font-family-titles;
   width: calc(100% - 38px);
-  transition: max-height 1s linear;
+  transition: max-height .5s linear;
   overflow: hidden;
   padding: 16px 40px 16px 16px;
   background-color: #fbfbfb;
@@ -31,7 +31,7 @@ li {
   .accordion-opened-content {
     opacity: 0;
     max-height: 0;
-    transition: max-height .5s linear, opacity .5s linear;
+    transition: max-height .25s linear, opacity .25s linear;
     overflow: hidden;
     margin-top: 8px;
   }
@@ -42,7 +42,7 @@ li {
     background-size: cover;
     background-position: center center;
     min-width: 64px;
-    transition: all 0.75s;
+    transition: all 0.375s;
   }
   .content-wrapper {
     display: flex;
@@ -85,7 +85,7 @@ li {
     position: absolute;
     top: 32px;
     right: 16px;
-    transition: transform .5s ease-in;
+    transition: transform .25s ease-in;
   }
 
   &.opened {

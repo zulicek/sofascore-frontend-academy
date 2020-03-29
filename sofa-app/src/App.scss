@@ -1,5 +1,9 @@
 @import "./index.scss";
 
+.spinner-wrapper {
+  text-align: center;
+}
+
 ul {
   padding-left: 0;
 }
@@ -32,4 +36,11 @@ ul {
       background-color: #f6f6f6;
     }
   }
+}
+
+.no-results {
+  text-align: center;
+  font-size: 15px;
+  color: $text-color;
+  opacity: 0.5;
 }
