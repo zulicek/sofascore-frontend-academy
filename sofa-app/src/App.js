@@ -14,14 +14,14 @@ export class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.wasFetched = false;
+
     this.state = {
       cocktails: [],
       isLoading: false,
       error: null,
       cocktailsShowing: [],
-      page: 1,
-      perPage: 10,
-      showNoResults: false
+      page: 1
     };
 
     this.onSearchClick = this.onSearchClick.bind(this);
@@ -35,8 +35,7 @@ export class App extends React.Component {
 
   getCocktails = newName => {
     this.setState({
-      isLoading: true,
-      showNoResults: true
+      isLoading: true
     });
 
     fetch(API + newName)
@@ -47,23 +46,20 @@ export class App extends React.Component {
           throw new Error("Something went wrong ...");
         }
       })
-      .then(data =>
+      .then(data => {
+        this.wasFetched = true;
         this.setState({
           cocktails: data.drinks,
           isLoading: false,
-          page: 1,
-          showNoResults: false,
-          pageCount: Math.ceil(
-            data.drinks.length / this.state.perPage
-          )
-        })
-      )
-      .catch(error =>
+          page: 1
+        });
+      })
+      .catch(error => {
         this.setState({
           error,
           isLoading: false
-        })
-      );
+        });
+      });
   };
 
   handlePageClick = newPage => {
@@ -73,11 +69,6 @@ export class App extends React.Component {
   };
 
   render() {
-    const cocktailsShowing = this.state.cocktails.slice(
-      (this.state.page - 1) * this.state.perPage,
-      this.state.page * this.state.perPage
-    );
-
     return (
       <div className="App">
         <IntroBanner
@@ -88,34 +79,41 @@ export class App extends React.Component {
         <SearchForm onSearch={this.onSearchClick} />
         {this.state.isLoading && <Loader />}
         {this.state.error ? (
-          <NoResults text="Something is wring with you request, try again" />
+          <NoResults text="Something is wrong with you request, try again" />
         ) : (
           <>
             <ul className="cocktails-list">
-              {cocktailsShowing.map(cocktail => (
-                <Cocktail
-                  key={cocktail.idDrink}
-                  name={cocktail.strDrink}
-                  category={cocktail.strCategory}
-                  alchocolic={cocktail.strAlcoholic}
-                  glass={cocktail.strGlass}
-                  instructions={cocktail.strInstructions}
-                  image={cocktail.strDrinkThumb}
-                />
-              ))}
+              {this.state.cocktails &&
+                this.state.cocktails
+                  .slice(
+                    (this.state.page - 1) * this.props.perPage,
+                    this.state.page * this.props.perPage
+                  )
+                  .map(cocktail => (
+                    <Cocktail
+                      key={cocktail.idDrink}
+                      name={cocktail.strDrink}
+                      category={cocktail.strCategory}
+                      alchocolic={cocktail.strAlcoholic}
+                      glass={cocktail.strGlass}
+                      instructions={cocktail.strInstructions}
+                      image={cocktail.strDrinkThumb}
+                    />
+                  ))}
             </ul>
 
-            {this.state.showNoResults && !this.state.isLoading && (
+            {this.wasFetched && !this.state.isLoading && (
               <NoResults text=" No results containing your search term were found." />
             )}
-            {this.state.cocktails.length > this.state.perPage && (
-              <Pagination
-                page={this.state.page}
-                handlePageClick={this.handlePageClick}
-                totalElements={this.state.cocktails.length}
-                perPage={this.state.perPage}
-              />
-            )}
+            {this.state.cocktails &&
+              this.state.cocktails.length > this.props.perPage && (
+                <Pagination
+                  page={this.state.page}
+                  handlePageClick={this.handlePageClick}
+                  totalElements={this.state.cocktails.length}
+                  perPage={this.props.perPage}
+                />
+              )}
           </>
         )}
       </div>
