@@ -1,11 +1,9 @@
 import React from "react";
+import "./NoResults.scss";
 
 export class NoResults extends React.Component {
   render() {
-    return (
-      <p className="no-results">
-        No results containing your search term were found.
-      </p>
-    );
+    const { text } = this.props;
+    return <p className="no-results">{text}</p>;
   }
 }

@@ -52,7 +52,7 @@ export class SearchForm extends React.Component {
             <button
               className="btn btn-primary btn-search"
               type="submit"
-              onClick={(e) => this.onSubmit(e)}
+              onClick={this.onSubmit}
             >
               SEARCH
             </button>

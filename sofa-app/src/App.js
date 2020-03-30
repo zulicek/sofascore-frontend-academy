@@ -15,13 +15,11 @@ export class App extends React.Component {
     super(props);
 
     this.state = {
-      name: "",
       cocktails: [],
       isLoading: false,
       error: null,
       cocktailsShowing: [],
-      totalElements: 0,
-      page: 12,
+      page: 1,
       perPage: 10,
       showNoResults: false
     };
@@ -32,27 +30,32 @@ export class App extends React.Component {
   }
 
   onSearchClick = newName => {
-    this.setState({ name: newName });
     this.getCocktails(newName);
   };
 
   getCocktails = newName => {
     this.setState({
       isLoading: true,
-      cocktailsShowing: [],
       showNoResults: true
     });
-    axios
-      .get(API + newName)
-      .then(result =>
+
+    fetch(API + newName)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong ...");
+        }
+      })
+      .then(data =>
         this.setState({
-          cocktails: result.data.drinks,
+          cocktails: data.drinks,
           isLoading: false,
           page: 1,
-          cocktailsShowing: result.data.drinks.slice(0, this.state.perPage),
           showNoResults: false,
-          totalElements: result.data.drinks.length,
-          pageCount: Math.ceil(result.data.drinks.length / this.state.perPage)
+          pageCount: Math.ceil(
+            data.drinks.length / this.state.perPage
+          )
         })
       )
       .catch(error =>
@@ -65,19 +68,16 @@ export class App extends React.Component {
 
   handlePageClick = newPage => {
     this.setState({
-      cocktailsShowing: this.state.cocktails.slice(
-        newPage > this.state.page
-          ? this.state.page * this.state.perPage
-          : (newPage - 1) * this.state.perPage,
-        newPage > this.state.page
-          ? newPage * this.state.perPage
-          : (this.state.page - 1) * this.state.perPage
-      ),
       page: newPage
     });
   };
 
   render() {
+    const cocktailsShowing = this.state.cocktails.slice(
+      (this.state.page - 1) * this.state.perPage,
+      this.state.page * this.state.perPage
+    );
+
     return (
       <div className="App">
         <IntroBanner
@@ -85,42 +85,39 @@ export class App extends React.Component {
           title="Cocktailand"
           intro="Make your day :)"
         />
-        <div className="container">
-          <div className="row">
-            <div className="col-md-10 offset-md-1">
-              <SearchForm onSearch={this.onSearchClick} />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-8 offset-lg-2">
-              {this.state.isLoading && <Loader />}
-              <ul>
-                {this.state.cocktailsShowing.map((cocktail, index) => (
-                  <Cocktail
-                    key={`${index}+${cocktail.idDrink}`}
-                    name={cocktail.strDrink}
-                    category={cocktail.strCategory}
-                    alchocolic={cocktail.strAlcoholic}
-                    glass={cocktail.strGlass}
-                    instructions={cocktail.strInstructions}
-                    image={cocktail.strDrinkThumb}
-                  />
-                ))}
-              </ul>
-              {this.state.showNoResults && !this.state.isLoading && (
-                <NoResults />
-              )}
-              {this.state.cocktails.length > this.state.perPage && (
-                <Pagination
-                  page={this.state.page}
-                  handlePageClick={this.handlePageClick}
-                  totalElements={this.state.totalElements}
-                  perPage={this.state.perPage}
+        <SearchForm onSearch={this.onSearchClick} />
+        {this.state.isLoading && <Loader />}
+        {this.state.error ? (
+          <NoResults text="Something is wring with you request, try again" />
+        ) : (
+          <>
+            <ul className="cocktails-list">
+              {cocktailsShowing.map(cocktail => (
+                <Cocktail
+                  key={cocktail.idDrink}
+                  name={cocktail.strDrink}
+                  category={cocktail.strCategory}
+                  alchocolic={cocktail.strAlcoholic}
+                  glass={cocktail.strGlass}
+                  instructions={cocktail.strInstructions}
+                  image={cocktail.strDrinkThumb}
                 />
-              )}
-            </div>
-          </div>
-        </div>
+              ))}
+            </ul>
+
+            {this.state.showNoResults && !this.state.isLoading && (
+              <NoResults text=" No results containing your search term were found." />
+            )}
+            {this.state.cocktails.length > this.state.perPage && (
+              <Pagination
+                page={this.state.page}
+                handlePageClick={this.handlePageClick}
+                totalElements={this.state.cocktails.length}
+                perPage={this.state.perPage}
+              />
+            )}
+          </>
+        )}
       </div>
     );
   }

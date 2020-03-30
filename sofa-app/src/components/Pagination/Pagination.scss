@@ -17,15 +17,18 @@
       background-color: #fff;
       border: 1px solid #ddd;
       margin-left: -1px;
+      font-weight: 500;
+      cursor: pointer;
       &:focus,
-      &.hover,
-      > li > span:focus,
-      > li > span:hover {
+      &.hover {
+        outline: none;
         background-color: rgba(119, 84, 252, 0.1);
       }
       &:disabled {
         color: #b0b0b0;
         background-color: #f6f6f6;
+        pointer-events: none;
+        font-weight: 300;
       }
     }
   }

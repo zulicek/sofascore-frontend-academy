@@ -2,13 +2,13 @@ import React from "react";
 
 export class PaginationItem extends React.Component {
     render() {
-      const { handlePageClick, pageChange, disabled, text, icon } = this.props
+      const { handlePageClick, disabled, text, icon } = this.props
   
       return (
         <button
-            onClick={() => handlePageClick(pageChange)}
+            onClick={handlePageClick}
             disabled={disabled}
-            className="page-link"
+            className="page-item"
             aria-label={text}
           >
             <span aria-hidden="true">{icon}</span>

@@ -1,7 +1,9 @@
 @import "./../../index.scss";
 
 .search-form {
-  margin-bottom: 24px;
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto 24px;
   .inner-form {
     display: flex;
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
@@ -58,6 +60,7 @@
   }
 
   @media (min-width: 576px) {
+    max-width: 960px;
     .svg-wrapper {
       min-width: 80px;
       svg {
