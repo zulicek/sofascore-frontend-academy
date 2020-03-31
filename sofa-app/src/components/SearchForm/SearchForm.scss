@@ -1,0 +1,82 @@
+@import "./../../index.scss";
+
+.search-form {
+  padding: 0 16px;
+  width: 100%;
+  margin: 0 auto 24px;
+  .inner-form {
+    display: flex;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 34px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    flex-direction: column;
+  }
+
+  .input-wrap {
+    height: 64px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .btn-wrap {
+    height: 64px;
+    min-width: 128px;
+  }
+
+  .svg-wrapper {
+    min-width: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: $black;
+    }
+  }
+
+  input {
+    height: 100%;
+    border: 0;
+    flex-grow: 1;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .btn-search {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .info {
+    font-size: 15px;
+    color: $text-color;
+    opacity: 0.5;
+    padding-left: 24px;
+  }
+
+  @media (min-width: 576px) {
+    max-width: 960px;
+    .svg-wrapper {
+      min-width: 80px;
+      svg {
+        width: 36px;
+        height: 36px;
+      }
+    }
+    .btn-wrap {
+      height: 64px;
+      min-width: 200px;
+    }
+  
+    .inner-form {
+      flex-direction: row;
+    }
+  }
+}
+
+

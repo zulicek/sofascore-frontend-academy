@@ -1,0 +1,11 @@
+@import "./index.scss";
+
+.cocktails-list {
+  padding-left: 0;
+  width: 100%;
+  padding: 0 16px;
+  margin: 0 auto 24px;
+  @media (min-width: 576px) {
+    max-width: 800px;
+  }
+}
