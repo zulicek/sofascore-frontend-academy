@@ -11,7 +11,7 @@
       line-height: 1.2;
       width: 100%;
       box-sizing: border-box;
-      height: 48px;
+      height: 60px;
       background: transparent;
       padding: 0 8px 0 32px;
       outline: none;
@@ -27,19 +27,19 @@
         border-color: rgba(255, 255, 255, 1);
         &::placeholder {
           position: absolute;
-          transform: translateY(-100%);
+          transform: translateY(-120%);
           font-size: 14px;
           transition: all 0.4s;
         }
         & + i {
-          transform: translateY(-25px);
+          transform: translateY(-30px);
           font-size: 14px;
         }
       }
       & ~ label {
         display: none;
         position: absolute;
-        top: -1px;
+        top: 0;
         left: 32px;
         font-size: 14px;
         color: $white;
