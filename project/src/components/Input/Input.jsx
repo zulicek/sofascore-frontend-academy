@@ -4,7 +4,6 @@ import './Input.scss';
 export function Input({ name, icon, type, onChange }) {
   return (
     <div className="input-wrapper">
-      {console.log("render")}
       <input type={type} name={name} placeholder={name} onChange={event => {
         onChange(event.currentTarget.value);
       }}/>
