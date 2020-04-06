@@ -1,9 +1,10 @@
 const API_BASE_URL = "https://private-leagues-api.herokuapp.com";
 
 const request = options => {
-  options["headers"] = { "Content-Type": "application/json" };
+  const opt = {...options}
+  opt.headers = { "Content-Type": "application/json" };
 
-  return fetch(options.url, options)
+  return fetch(options.url, opt)
     .then(response => {
       return response.json();
     })
@@ -12,10 +13,10 @@ const request = options => {
     });
 };
 
-export function login(loginRequest) {
+export function postJson( url, postRequest) {
   return request({
-    url: API_BASE_URL + "/api/login",
+    url: API_BASE_URL + url,
     method: "POST",
-    body: JSON.stringify(loginRequest)
-  });
+    body: JSON.stringify(postRequest)
+  })
 }

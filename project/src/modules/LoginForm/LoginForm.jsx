@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./LoginForm.scss";
 import { Logo } from "./../../components/Logo/Logo";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
-import { login } from "./../../api/APIutils";
+import { PasswordInput } from "./../../components/Input/PasswordInput";
+import { login } from "./../../api/repository";
 
 export function LoginForm() {
   const [username, setUsername] = useState();
@@ -11,13 +12,13 @@ export function LoginForm() {
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState();
 
-  const handleUsernameChange = newName => {
+  const handleUsernameChange =  useCallback((newName) => {
     setUsername(newName);
-  };
+  });
 
-  const handlePasswordChange = newPassword => {
+  const handlePasswordChange = useCallback((newPassword) => {
     setPassword(newPassword);
-  };
+  });
 
   const validateForm = () => {
     let validForm = true;
@@ -56,8 +57,8 @@ export function LoginForm() {
               credentials: "Wrong credentials. Try again."
             }));
           } else {
-            setUser(response);
-            alert("Bok " + response.username + "!");
+            setUser(response.user);
+            alert(`Bok ${response.user.username}!`);
           }
         })
         .catch(error => console.log(error));
@@ -77,10 +78,9 @@ export function LoginForm() {
         />
         <div className="error">{errors.username}</div>
 
-        <Input
+        <PasswordInput
           name="Password"
           icon="fa fa-lock"
-          type="password"
           onChange={handlePasswordChange}
         />
         <div className="error">{errors.password}</div>

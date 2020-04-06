@@ -1,11 +1,5 @@
-
-$font-family-titles: 'Raleway', sans-serif;
-$font-family-text: 'Montserrat', sans-serif;
-$primary-color: #7754fc;
-$secondary-color: #40adfd;
-$text-color: #555555;
-$white: #ffffff;
-$black: #000000;
+@import './variables.scss';
+@import "./../node_modules/font-awesome/scss/font-awesome.scss";
 
 body {
   margin: 0;
@@ -67,6 +61,6 @@ p {
 }
 
 .btn-inverse:hover {
-  color: $white;
-  background-color: $secondary-color;
+  font-weight: 500;
+  transform: scale(1.15);
 }
