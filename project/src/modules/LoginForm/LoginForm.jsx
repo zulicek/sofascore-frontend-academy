@@ -3,7 +3,6 @@ import "./LoginForm.scss";
 import { Logo } from "./../../components/Logo/Logo";
 import { Button } from "./../../components/Button/Button";
 import { Input } from "./../../components/Input/Input";
-import { PasswordInput } from "./../../components/Input/PasswordInput";
 import { login } from "./../../api/repository";
 
 export function LoginForm() {
@@ -11,14 +10,17 @@ export function LoginForm() {
   const [password, setPassword] = useState();
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState();
+  const [show, setShow] = useState(false);
 
-  const handleUsernameChange =  useCallback((newName) => {
+  const toggleShowPassword = useCallback(() => setShow(!show), []);
+
+  const handleUsernameChange = useCallback((newName) => {
     setUsername(newName);
-  });
+  }, []);
 
   const handlePasswordChange = useCallback((newPassword) => {
     setPassword(newPassword);
-  });
+  }, []);
 
   const validateForm = () => {
     let validForm = true;
@@ -26,42 +28,42 @@ export function LoginForm() {
 
     if (!username) {
       validForm = false;
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        username: "Username can't be empty"
+        username: "Username can't be empty",
       }));
     }
 
     if (!password) {
       validForm = false;
-      setErrors(prevErrors => ({
+      setErrors((prevErrors) => ({
         ...prevErrors,
-        password: "Password can't be empty"
+        password: "Password can't be empty",
       }));
     }
     return validForm;
   };
 
-  const onLogin = e => {
+  const onLogin = (e) => {
     e.preventDefault();
 
     if (validateForm()) {
       login({
         username: username,
-        password: password
+        password: password,
       })
-        .then(response => {
+        .then((response) => {
           if (response.error) {
-            setErrors(prevErrors => ({
+            setErrors((prevErrors) => ({
               ...prevErrors,
-              credentials: "Wrong credentials. Try again."
+              credentials: "Wrong credentials. Try again.",
             }));
           } else {
             setUser(response.user);
             alert(`Bok ${response.user.username}!`);
           }
         })
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
     }
   };
 
@@ -78,10 +80,17 @@ export function LoginForm() {
         />
         <div className="error">{errors.username}</div>
 
-        <PasswordInput
+        <Input
           name="Password"
           icon="fa fa-lock"
+          type={show ? "text" : "password"}
           onChange={handlePasswordChange}
+          iconDecoration={
+            <div className="show-password" onClick={toggleShowPassword}>
+              <i className="fa fa-eye" aria-hidden="true"></i>
+              <span className="tooltip">Show password</span>
+            </div>
+          }
         />
         <div className="error">{errors.password}</div>
 
