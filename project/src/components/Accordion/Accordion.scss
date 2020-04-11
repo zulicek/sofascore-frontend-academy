@@ -1,0 +1,75 @@
+@import "./../../variables.scss";
+
+.accordion {
+  font-family: $font-family-titles;
+  width: calc(100% - 38px);
+  height: 38px;
+  transition: height 1s ease-in-out;
+  overflow: hidden;
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    height: 36px;
+    color: #fff;
+    cursor: pointer;
+    justify-content: space-between;
+    background: linear-gradient(90deg, $secondary-color, $primary-color);
+
+    & > .title {
+      margin: 0;
+      font-size: 16px;
+      text-transform: uppercase;
+    }
+  }
+
+  .accordion-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: #fbfbfb;
+    border: 1px solid #f0eeee;
+    box-shadow: 10px 10px 34px -10px rgba(224, 224, 224, 1);
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      margin-right: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+      }
+
+      .title {
+        margin: 8px 0;
+        display: inline-block;
+        width: 100px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .image-wrapper {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+
+        img {
+          width: 200px;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .icon {
+    transition: transform 1s ease-in;
+  }
+}

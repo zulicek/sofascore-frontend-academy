@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.scss";
-import { LoginForm } from './modules/LoginForm/LoginForm';
+import { Homework6 } from './modules/Homework6';
 
 export function App() {
   return (
-       <LoginForm />
+       <Homework6 />
   )
 }
 
