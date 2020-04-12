@@ -5,7 +5,6 @@
   width: calc(100% - 38px);
   height: 38px;
   transition: height 1s ease-in-out;
-  overflow: hidden;
 
   .accordion-header {
     display: flex;
@@ -25,6 +24,7 @@
   }
 
   .accordion-content {
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,6 +32,7 @@
     background-color: #fbfbfb;
     border: 1px solid #f0eeee;
     box-shadow: 10px 10px 34px -10px rgba(224, 224, 224, 1);
+    transition: height .4s ease-in-out;
 
     ul {
       list-style: none;

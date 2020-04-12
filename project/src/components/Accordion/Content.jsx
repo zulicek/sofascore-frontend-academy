@@ -1,11 +1,11 @@
 import React from "react";
 
-export function Content() {
+export function Content({contentRef, height}) {
   return (
-    <div className="accordion-content">
+    <div className="accordion-content" ref={contentRef} style={{ height: height }}>
         <ul>
             <li>
-                <div claclassNamess="title">Type:</div>
+                <div className="title">Type:</div>
                 <div>poison, grass</div>
             </li>
             <li>

@@ -1,9 +1,9 @@
 import React from "react";
 
-export function Header() {
+export function Header({onClick}) {
   return (
-    <div className="accordion-header">
-        <h2 claclassNamess="title">bulbasaur</h2>
+    <div className="accordion-header" onClick={onClick}>
+        <h2 className="title">bulbasaur</h2>
         <div className="icon">
             <i className="fa fa-angle-down" aria-hidden="true"></i>
         </div>
