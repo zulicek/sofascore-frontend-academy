@@ -1,26 +1,21 @@
 import React, { useState, useCallback } from "react";
-import "./LoginForm.scss";
-import { Logo } from "./../../components/Logo/Logo";
-import { Button } from "./../../components/Button/Button";
-import { Input } from "./../../components/Input/Input";
-import { login } from "./../../api/repository";
+import "./../Form.scss";
+import { Logo } from "../../../components/Logo/Logo";
+import { Button } from "../../../components/Button/Button";
+import { Input } from "../../../components/Input/Input";
+import { login } from "../../../api/repository";
+import { useInputChange } from "../../../utils/UseInputChange";
+import { isEmpty } from "./../../../utils/IsEmpty"
+
 
 export function LoginForm() {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, handleUsernameChange] = useInputChange("");
+  const [password, handlePasswordChange] = useInputChange("");
   const [errors, setErrors] = useState({});
   const [user, setUser] = useState();
   const [show, setShow] = useState(false);
 
   const toggleShowPassword = useCallback(() => setShow(!show), []);
-
-  const handleUsernameChange = useCallback((newName) => {
-    setUsername(newName);
-  }, []);
-
-  const handlePasswordChange = useCallback((newPassword) => {
-    setPassword(newPassword);
-  }, []);
 
   const validateForm = () => {
     let validForm = true;
@@ -46,7 +41,7 @@ export function LoginForm() {
 
   const onLogin = (e) => {
     e.preventDefault();
-
+    
     if (validateForm()) {
       login({
         username: username,
@@ -68,7 +63,7 @@ export function LoginForm() {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className="form-wrapper">
       <form onSubmit={onLogin}>
         <Logo />
         <h1 className="form-title">Log in</h1>
@@ -97,7 +92,7 @@ export function LoginForm() {
         <div className="error-wrapper">
           <div className="error">{errors.credentials}</div>
         </div>
-        <Button type="inverse" />
+        <Button type="inverse" label="Log in"/>
       </form>
     </div>
   );
