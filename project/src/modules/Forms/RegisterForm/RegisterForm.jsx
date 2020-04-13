@@ -74,37 +74,11 @@ export function RegisterForm() {
   };
 
   const onRegister = (e) => {
-    e.preventDefault();
-
-   /*  const errors = useValidateRequiredFields([
-      { identifier:"username", text: "Username", value: username},
-      { identifier:"password", text: "Password", value: password},
-      { identifier:"firstName", text: "First name", value: firstName},
-      { identifier:"lastName", text: "Last name", value: lastName},
-      { identifier:"birthday", text: "Birthday", value: birthday},
-      { identifier:"gender", text: "Gender", value: gender}
-    ]); */
-    
+    e.preventDefault();    
 
 
     if (validateForm()) {
       alert("bok" + username);
-      /* register({
-        username: username,
-        password: password,
-      })
-        .then((response) => {
-          if (response.error) {
-            setErrors((prevErrors) => ({
-              ...prevErrors,
-              credentials: "Wrong credentials. Try again.",
-            }));
-          } else {
-            setUser(response.user);
-            alert(`Bok ${response.user.username}!`);
-          }
-        })
-        .catch((error) => console.log(error)); */
     }
   };
 
