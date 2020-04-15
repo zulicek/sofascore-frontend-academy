@@ -7,6 +7,7 @@ export function Homework6() {
   return (
     <>
         <Accordion />
+        <Accordion />
         <ModalWrapper />
     </>
   );

@@ -1,10 +1,14 @@
-import React, { useState, useCallback } from "react";
+import React, { useState , useEffect} from "react";
 import "./../Form.scss";
 import "./RegisterForm.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";
 import { Input } from "../../../components/Input/Input";
-import { useInputChange } from "../../../utils/UseInputChange";
+import { useInputChange } from "../../../utils/customHooks/UseInputChange";
+import { useBoolean } from "../../../utils/customHooks/UseBoolean";
+import { validateRegister } from "./../../../utils/validations/validateRegister";
+import { isObjectEmpty } from "./../../../utils/helpers";
+import { register } from "../../../api/repository";
 
 export function RegisterForm() {
   const [username, handleUsernameChange] = useInputChange("");
@@ -14,72 +18,44 @@ export function RegisterForm() {
   const [birthday, handleBirthdayChange] = useInputChange("");
   const [gender, handleGenderChange] = useInputChange("");
   const [errors, setErrors] = useState({});
-  const [user, setUser] = useState();
-  const [show, setShow] = useState(false);
+  const [userId, setUserId] = useState();
+  const [show, toggleShow] = useBoolean(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const toggleShowPassword = useCallback(() => setShow(!show), []);
-
-  const validateForm = () => {
-    let validForm = true;
-    setErrors({});
-
-    if (!username) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        username: "Username can't be empty",
-      }));
+  useEffect(() => {
+    if (submitted && isObjectEmpty(errors)) {
+      register({
+        username: username,
+        password: password,
+      })
+        .then((response) => {
+          if (response.error) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              credentials: response.error,
+            }));
+          } else {
+           setUserId(response.id);
+          }
+        })
+        .catch((error) => console.log(error));
     }
-
-    if (!password) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "Password can't be empty",
-      }));
-    }
-
-    if (!firstName) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        firstName: "First name can't be empty",
-      }));
-    }
-
-    if (!lastName) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        lastName: "Last name can't be empty",
-      }));
-    }
-
-    if (!birthday) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        birthday: "Birthday can't be empty",
-      }));
-    }
-
-    if (!gender) {
-      validForm = false;
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        gender: "Gender can't be empty",
-      }));
-    }
-    return validForm;
-  };
+  }, [errors]);
 
   const onRegister = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
 
-
-    if (validateForm()) {
-      alert("bok" + username);
-    }
+    setSubmitted(true);
+    setErrors(
+      validateRegister(
+        username,
+        password,
+        firstName,
+        lastName,
+        birthday,
+        gender
+      )
+    );
   };
 
   return (
@@ -101,7 +77,7 @@ export function RegisterForm() {
           type={show ? "text" : "password"}
           onChange={handlePasswordChange}
           iconDecoration={
-            <div className="show-password" onClick={toggleShowPassword}>
+            <div className="show-password" onClick={toggleShow}>
               <i className="fa fa-eye" aria-hidden="true"></i>
               <span className="tooltip">Show password</span>
             </div>
@@ -166,7 +142,7 @@ export function RegisterForm() {
             <div className="error">{errors.credentials}</div>
           </div>
         )}
-        <Button type="inverse" label="Register" />
+        <Button type="inverse">Register</Button>
       </form>
     </div>
   );

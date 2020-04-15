@@ -1,9 +1,9 @@
 import React from "react";
 import { Modal } from "./Modal";
-import { useIsOpen } from "../../utils/UseIsOpen";
+import { useBoolean } from "../../utils/customHooks/UseBoolean";
 
 export function ModalWrapper() {
-  const [isOpen, toggleOpen ] = useIsOpen();
+  const [isOpen, toggleOpen ] = useBoolean();
   return (
     <>
       <button onClick={toggleOpen}>Toggle Modal</button>
