@@ -6,8 +6,8 @@ import { Input } from "../../../components/Input/Input";
 import { login } from "../../../api/repository";
 import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from '../../../utils/customHooks/UseBoolean';
-import { validateCredentials } from "./../../../utils/validations/validateCredentials";
-import { isObjectEmpty } from "./../../../utils/helpers";
+import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
+import { isObjectEmpty } from "./../../../utils/helpers.js";
 
 
 export function LoginForm() {

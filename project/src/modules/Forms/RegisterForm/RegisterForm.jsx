@@ -6,8 +6,8 @@ import { Button } from "../../../components/Button/Button";
 import { Input } from "../../../components/Input/Input";
 import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from "../../../utils/customHooks/UseBoolean";
-import { validateRegister } from "./../../../utils/validations/validateRegister";
-import { isObjectEmpty } from "./../../../utils/helpers";
+import { validateRegister } from "./../../../utils/validations/validateRegister.js";
+import { isObjectEmpty } from "./../../../utils/helpers.js";
 import { register } from "../../../api/repository";
 
 export function RegisterForm() {
