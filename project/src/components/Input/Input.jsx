@@ -1,5 +1,6 @@
 import React from "react";
 import "./Input.scss";
+import ModernDatepicker from 'react-modern-datepicker';
 
 export function Input({ name, icon, type, onChange, iconDecoration, value, checked }) {
   return (

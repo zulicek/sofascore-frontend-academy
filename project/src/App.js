@@ -7,9 +7,9 @@ import { LoginForm } from "./modules/Forms/LoginForm/LoginForm";
 export function App() {
   return (
       <>
-       {/* <Homework6 /> */}
-       <RegisterForm />
-      {/*  <LoginForm/> */}
+       <Homework6 />
+       {/* <RegisterForm /> */}
+       {/* <LoginForm/> */}
       </>
   )
 }

@@ -7,12 +7,14 @@ import { useBoolean } from '../../utils/customHooks/UseBoolean';
   
 export function Accordion() {
     const [isOpen, toggleOpen] = useBoolean();
-    const content = useRef(null);
+    const contentRef = useRef();
+
+    {console.log(contentRef)}
   
   return (
     <div className="accordion">
         <Header onClick={toggleOpen} isOpen={isOpen}/>
-        <Content contentRef={content} height={isOpen ? `${content.current.scrollHeight}px` : '0px'}/>
+        <Content ref={contentRef} height={isOpen ? `${contentRef.current.scrollHeight}px` : '0px'}/>
     </div>
   );
 }

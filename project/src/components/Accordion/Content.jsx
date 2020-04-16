@@ -1,8 +1,8 @@
 import React from "react";
 
-export function Content({contentRef, height}) {
+export const Content = React.forwardRef(({height}, ref) => {
   return (
-    <div className="accordion-content" ref={contentRef} style={{ height: height }}>
+    <div className="accordion-content" ref={ref} style={{ height: height }}>
         <ul>
             <li>
                 <div className="title">Type:</div>
@@ -18,4 +18,4 @@ export function Content({contentRef, height}) {
         </div>
     </div>
   );
-}
+})

@@ -114,6 +114,7 @@ export function RegisterForm() {
           <i className="fa fa-birthday-cake" aria-hidden="true"></i>
           <label>Birthday</label>
           <Input type="date" onChange={handleBirthdayChange} />
+          
           {errors.birthday && <div className="error">{errors.birthday}</div>}
         </div>
 
