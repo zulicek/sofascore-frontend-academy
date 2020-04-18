@@ -1,0 +1,42 @@
+@import "./../../../variables.scss";
+
+.two-col {
+    display: flex;
+    margin-top: 16px;
+    > * {
+        width: 50%;
+        &:first-child {
+            margin-right: 16px;
+        }
+    }
+}
+
+.label-inline {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    > label {
+        color: $white;
+        font-size: 16px;
+        position: relative;
+        margin: 0 16px 8px 0;
+        padding: 0 0 16px 32px;
+        align-self: flex-end;
+        width: 90px;
+    }
+
+    i {
+        top: 42px;
+    }
+
+    .error {
+        width: 100%;
+    }
+
+    &.radios {
+        .input-wrapper {
+            flex: 0;
+            margin-right: 24px;
+        }
+    }
+}

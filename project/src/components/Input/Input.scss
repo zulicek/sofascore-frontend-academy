@@ -1,10 +1,12 @@
 @import "./../../variables.scss";
 
 .input-wrapper {
-  width: 100%;
+  flex: 1;
   position: relative;
-  margin-bottom: 8px;
-  margin-top: 24px;
+  margin: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  height: 62px;
   input {
     font-size: 16px;
     color: $white;
@@ -50,14 +52,41 @@
     &:not(:placeholder-shown) ~ label {
       display: block;
     }
-  }
-  > i {
-    content: "";
-    position: absolute;
-    bottom: 16px;
-    left: 0;
-    color: $white;
-    font-size: 20px;
+
+    &[type="radio"] {
+      position: absolute;
+      visibility: hidden;
+      & ~ label {
+        position: relative;
+        font-size: 16px;
+        left: 0;
+        padding: 0 0 16px 32px;
+        align-self: flex-end;
+        cursor: pointer;
+        &::before {
+          content: "";
+          position: absolute;
+          border: 2px solid $white;
+          border-radius: 100%;
+          height: 16px;
+          width: 16px;
+          left: 0;
+          top: 0;
+        }
+      }
+      &:checked ~ label {
+        &::after {
+          content: "";
+          position: absolute;
+          background: $white;
+          border-radius: 100%;
+          height: 12px;
+          width: 12px;
+          left: 4px;
+          top: 4px;
+        }
+      }
+    }
   }
   .show-password {
     position: absolute;
@@ -66,10 +95,14 @@
     color: $white;
     padding: 16px 0 16px 16px;
     cursor: pointer;
+    i {
+      left: unset;
+      right: 0;
+    }
     .tooltip {
       position: absolute;
       z-index: 1;
-      top: -3px;
+      top: -24px;
       left: -61px;
       width: 95px;
       font-size: 12px;

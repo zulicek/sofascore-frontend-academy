@@ -1,15 +1,24 @@
 import React from "react";
-import './Input.scss';
+import "./Input.scss";
+import ModernDatepicker from 'react-modern-datepicker';
 
-export function Input({ name, icon, type, onChange, iconDecoration }) {
+export function Input({ name, icon, type, onChange, iconDecoration, value, checked }) {
   return (
     <div className="input-wrapper">
-      <input type={type} name={name} placeholder={name} onChange={event => {
-        onChange(event.currentTarget.value);
-      }}/>
+      <input
+        id={name}
+        type={type}
+        name={name}
+        placeholder={name}
+        value={value}
+        checked={checked}
+        onChange={(event) => {
+          onChange(event.currentTarget.value);
+        }}
+      />
       <i className={icon} aria-hidden="true"></i>
-      <label htmlFor={name}>{name}</label>
+      <label id={name} htmlFor={name}>{name}</label>
       {iconDecoration}
-  </div>
+    </div>
   );
 }
