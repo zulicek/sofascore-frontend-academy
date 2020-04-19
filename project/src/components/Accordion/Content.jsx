@@ -1,21 +1,26 @@
 import React from "react";
 
-export const Content = React.forwardRef(({height}, ref) => {
-  return (
-    <div className="accordion-content" ref={ref} style={{ height: height }}>
-        <ul>
-            <li>
-                <div className="title">Type:</div>
-                <div>poison, grass</div>
-            </li>
-            <li>
-                <div className="title">Abilites:</div>
-                <div>chlorophyll, overgrow</div>
-            </li>
-        </ul>
-        <div className="image-wrapper">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" />
+export const Content = React.forwardRef(
+  ({ height, location, competitors }, ref) => {
+    return (
+      <div className="accordion-content" ref={ref} style={{ height: height }}>
+        <div className="location-data">
+          <h3 className="title">Location info:</h3>
+          <p>{location.name}</p>
+          <p>{location.address}</p>
+          <p>{location.tel}</p>
         </div>
-    </div>
-  );
-})
+        <div className="competitors-data">
+          <h3 className="title">Competitors</h3>
+          <ul>
+            {competitors.map((competitor) => (
+              <li>
+                {competitor.lastName}, {competitor.name}, {competitor.points}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+);

@@ -2,7 +2,6 @@
 
 .accordion {
   font-family: $font-family-titles;
-  width: calc(100% - 38px);
 
   .accordion-header {
     display: flex;
@@ -24,7 +23,6 @@
   .accordion-content {
     overflow: hidden;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     padding: 0 16px;
     background-color: #fbfbfb;
