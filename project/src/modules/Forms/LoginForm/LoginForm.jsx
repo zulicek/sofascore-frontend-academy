@@ -18,7 +18,7 @@ export function LoginForm() {
   const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const [submitted, setSubmitted] = useState(false);
-  const { isLoading, error, user } = useSelector(state => state)
+  const { login} = useSelector(state => state)
   const dispatch = useDispatch()
 
   /* useEffect(() => {
@@ -56,6 +56,15 @@ export function LoginForm() {
     },
     [username, password, dispatch]
   )
+
+  if (login.user) {
+    return (
+      <div>
+        {console.log(login.user.user.username)}
+        <h2>Welcome {login.user.user.username}</h2>
+      </div>
+    )
+  }
 
   return (
     <div className="form-wrapper">
