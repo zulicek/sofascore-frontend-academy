@@ -32,6 +32,7 @@ export function LoginForm() {
             }));
           } else {
             setUser(response.user);
+            console.log(response.user)
             alert(`Bok ${response.user.username}!`);
           }
         })
@@ -47,7 +48,6 @@ export function LoginForm() {
 
   return (
     <div className="form-wrapper">
-      {console.log(errors)}
       <form onSubmit={onLogin}>
         <Logo />
         <h1 className="form-title">Log in</h1>
