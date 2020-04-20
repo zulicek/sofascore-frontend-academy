@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./../Form.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";
@@ -8,18 +9,23 @@ import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from '../../../utils/customHooks/UseBoolean';
 import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
+import { loginUser } from "./../../../actionCreators/loginActionCreator";
 
 
 export function LoginForm() {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
   const [errors, setErrors] = useState({});
-  const [user, setUser] = useState();
   const [show, toggleShow] = useBoolean(false);
   const [submitted, setSubmitted] = useState(false);
+  const { isLoading, error, user } = useSelector(state => state)
+  const dispatch = useDispatch()
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (submitted && isObjectEmpty(errors)) {
+      dispatch(loginUser(username, password))
+      
+      
       login({
         username: username,
         password: password,
@@ -38,13 +44,18 @@ export function LoginForm() {
         })
         .catch((error) => console.log(error));
     }
-  }, [errors]);
+  }, [errors]); */
 
-  const onLogin = (e) => {
-    e.preventDefault();
-    setSubmitted(true)
-    setErrors(validateCredentials(username, password));
-  }  
+  const onLogin = useCallback(
+    async e => {
+      e.preventDefault()
+
+      setErrors(validateCredentials(username, password));
+
+      dispatch(loginUser(username, password))
+    },
+    [username, password, dispatch]
+  )
 
   return (
     <div className="form-wrapper">
