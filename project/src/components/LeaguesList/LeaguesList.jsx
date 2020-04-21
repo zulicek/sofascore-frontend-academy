@@ -1,6 +1,7 @@
 import React from "react";
 import { Accordion } from "../Accordion/Accordion";
 import "./LeaguesList.scss";
+import { useDispatch, useSelector } from "react-redux";
 
 export function LeaguesList({title, leagues}) {
     return (

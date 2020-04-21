@@ -1,40 +1,41 @@
 import React from "react";
 import "./MainHeader.scss";
-import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import { NavLink } from "react-router-dom";
 
 export function MainHeader() {
   const [cookies, removeCookie] = useCookies(["token"]);
   return (
     <header>
-      <nav>
+      {cookies.token !== "undefined" && (
         <ul>
-          {cookies.token !== 'undefined' &&
-            <>
-              <li>
-                <Link to="/">Leagues</Link>
-              </li>
-              <li>
-                <Link to="/myleagues">My leagues</Link>
-              </li>
-              <li>
-                <Link to="/profile">Profile</Link>
-              </li>
-              <li>
-                <Link
-                  to="/logout"
-                  onClick={() => {
-                      removeCookie("token");
-                      window.location = "/login";
-                  }}
-                >
-                  Log out
-                </Link>
-              </li>
-            </>
-          }
+          <li>
+            <NavLink exact to="/">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/leagues">Leagues</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myleagues">My leagues</NavLink>
+          </li>
+          <li>
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/logout"
+              onClick={() => {
+                removeCookie("token");
+                window.location = "/login";
+              }}
+            >
+              Log out
+            </NavLink>
+          </li>
         </ul>
-      </nav>
+      )}
     </header>
   );
 }

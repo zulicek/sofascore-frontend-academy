@@ -10,7 +10,7 @@ import { validateCredentials } from "./../../../utils/validations/validateCreden
 import { isObjectEmpty } from "./../../../utils/helpers.js";
 import { loginUser } from "./../../../actionCreators/loginActionCreator";
 import { useCookies } from 'react-cookie';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { Loader } from "../../../components/Loader/Loader"
 
 
@@ -38,7 +38,7 @@ export function LoginForm() {
   
   if (loginData.isLoading) return <Loader/>;
 
-  if (loginData.user) return window.location = "/";
+  if (loginData.user) return <Redirect to="/" />;
 
   return (
       <div className="form-wrapper">
