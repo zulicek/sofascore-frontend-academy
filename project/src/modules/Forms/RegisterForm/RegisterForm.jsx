@@ -9,6 +9,7 @@ import { useBoolean } from "../../../utils/customHooks/UseBoolean";
 import { validateRegister } from "./../../../utils/validations/validateRegister.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
 import { register } from "../../../api/repository";
+import { Link } from "react-router-dom";
 
 export function RegisterForm() {
   const [username, handleUsernameChange] = useInputChange("");
@@ -144,6 +145,7 @@ export function RegisterForm() {
           </div>
         )}
         <Button type="inverse">Register</Button>
+        <p className="auth-link">You already have an account? Log in <Link to="/login">here</Link>.</p>
       </form>
     </div>
   );

@@ -49,6 +49,17 @@
           display: inline-block;
       }
   }
+
+  .auth-link {
+    text-align: center;
+    color: $white;
+    font-size: 12px;
+    margin-top: 2rem;
+    a {
+      color: white;
+      font-weight: 500;
+    }
+  }
 }
 
 @media (min-width: 320px) {

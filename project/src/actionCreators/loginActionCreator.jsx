@@ -1,6 +1,6 @@
 import {fetchStarted, fetchSuccessful, fetchFailed} from "../actions/loginActions";
 
-export function loginUser(username, password) {
+export function loginUser(username, password, setCookie, setErrors) {
     return async function (dispatch) {
       dispatch(fetchStarted())
   
@@ -16,9 +16,14 @@ export function loginUser(username, password) {
         }
   
         const userData = await response.json()
+        setCookie("token", userData.token); 
   
         return dispatch(fetchSuccessful(userData))
       } catch (e) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              credentials: "Wrong credentials. Try again.",
+            }));
         return dispatch(fetchFailed(e))
       }
     }
