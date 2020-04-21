@@ -1,30 +1,28 @@
 import {fetchStarted, fetchSuccessful, fetchFailed} from "../actions/loginActions";
+import { login } from "../api/repository";
 
 export function loginUser(username, password, setCookie, setErrors) {
+    
     return async function (dispatch) {
       dispatch(fetchStarted())
-  
-      try {
-        const response = await fetch('https://private-leagues-api.herokuapp.com/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-        })
-  
-        if (response.status > 299) {
-          throw Error('Invalid response')
-        }
-  
-        const userData = await response.json()
-        setCookie("token", userData.token); 
-  
-        return dispatch(fetchSuccessful(userData))
-      } catch (e) {
+
+      await login({
+        username: username,
+        password: password,
+      })
+        .then((response) => {
+          if (response.error) {
             setErrors((prevErrors) => ({
               ...prevErrors,
               credentials: "Wrong credentials. Try again.",
             }));
-        return dispatch(fetchFailed(e))
-      }
+          } else {
+            const userData = response
+            setCookie("token", userData.token);
+
+            return dispatch(fetchSuccessful(userData))
+          }
+        })
+        .catch((error) => dispatch(fetchFailed(error)))
     }
   }

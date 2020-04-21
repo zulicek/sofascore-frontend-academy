@@ -4,7 +4,6 @@ import "../Form.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";
 import { Input } from "../../../components/Input/Input";
-import { login } from "../../../api/repository";
 import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from '../../../utils/customHooks/UseBoolean';
 import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
@@ -35,17 +34,14 @@ export function LoginForm() {
     e.preventDefault();
     setSubmitted(true)
     setErrors(validateCredentials(username, password));
-  }  
+  } 
+  
+  if (login.isLoading) return <Loader/>;
 
-  if (login.user) {
-      window.location = "/";
-  }
+  if (login.user) return window.location = "/";
 
   return (
-    <>
-    {login.isLoading ? <Loader/> :
       <div className="form-wrapper">
-        {console.log(login)}
         <form onSubmit={onLogin}>
           <Logo />
           <h1 className="form-title">Log in</h1>
@@ -78,7 +74,5 @@ export function LoginForm() {
           <p className="auth-link">You don't have an account? Register <Link to="/register">here</Link>.</p>
         </form>
       </div>
-    }
-    </>
   );
 }
