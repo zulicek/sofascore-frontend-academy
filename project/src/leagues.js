@@ -1,4 +1,4 @@
-export const data = [
+export const leagues = [
     {
       id: 0,
       name: "Proljetna liga",

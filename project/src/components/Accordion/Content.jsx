@@ -14,7 +14,7 @@ export const Content = React.forwardRef(
           <h3 className="title">Competitors</h3>
           <ul>
             {competitors.map((competitor) => (
-              <li>
+              <li key={competitor.id}>
                 {competitor.lastName}, {competitor.name}, {competitor.points}
               </li>
             ))}

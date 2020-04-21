@@ -20,7 +20,7 @@ export function LoginForm() {
   const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const [submitted, setSubmitted] = useState(false);
-  const { login } = useSelector(state => state)
+  const { loginData } = useSelector(state => state)
   const dispatch = useDispatch()
   const [cookies, setCookie] = useCookies(['token']);
 
@@ -36,9 +36,9 @@ export function LoginForm() {
     setErrors(validateCredentials(username, password));
   } 
   
-  if (login.isLoading) return <Loader/>;
+  if (loginData.isLoading) return <Loader/>;
 
-  if (login.user) return window.location = "/";
+  if (loginData.user) return window.location = "/";
 
   return (
       <div className="form-wrapper">

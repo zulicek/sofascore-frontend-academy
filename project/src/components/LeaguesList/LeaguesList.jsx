@@ -9,7 +9,7 @@ export function LeaguesList({title, leagues}) {
         {leagues && 
           <ul>
             {leagues.map((league) => 
-              <li>
+              <li key={league.id}>
                 <Accordion
                   name={league.name}
                   type={league.type}

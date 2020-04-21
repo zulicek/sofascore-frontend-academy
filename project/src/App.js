@@ -10,6 +10,7 @@ import {Leagues} from "./modules/Leagues/Leagues"
 import {UserLeagues} from "./modules/UserLeagues/UserLeagues"
 import {LoginForm} from "./modules/Forms/LoginForm/LoginForm";
 import {RegisterForm} from "./modules/Forms/RegisterForm/RegisterForm";
+import {UserProfile} from "./modules/UserProfile/UserProfile";
 import {MainHeader} from "./components/MainHeader/MainHeader";
 
 import data from "./leagues"
@@ -22,6 +23,9 @@ export function App() {
           <Switch>
               <Route path="/myleagues">
                 <UserLeagues />
+              </Route>
+              <Route path="/profile">
+                <UserProfile />
               </Route>
               <Route path="/login">
                 <LoginForm />

@@ -18,6 +18,9 @@ export function MainHeader() {
                 <Link to="/myleagues">My leagues</Link>
               </li>
               <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
                 <Link
                   to="/logout"
                   onClick={() => {
