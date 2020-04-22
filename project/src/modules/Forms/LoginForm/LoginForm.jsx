@@ -9,7 +9,6 @@ import { useBoolean } from '../../../utils/customHooks/UseBoolean';
 import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
 import { loginUser } from "./../../../actionCreators/loginActionCreator";
-import { useCookies } from 'react-cookie';
 import { Link, Redirect } from "react-router-dom";
 import { Loader } from "../../../components/Loader/Loader"
 
@@ -22,11 +21,10 @@ export function LoginForm() {
   const [submitted, setSubmitted] = useState(false);
   const { loginData } = useSelector(state => state)
   const dispatch = useDispatch()
-  const [cookies, setCookie] = useCookies(['token']);
 
   useEffect(() => {
     if (submitted && isObjectEmpty(errors)) {
-      dispatch(loginUser(username, password, setCookie, setErrors))
+      dispatch(loginUser(username, password, setErrors))
     }
   }, [username, password, dispatch, errors]);
 

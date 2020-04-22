@@ -1,6 +1,5 @@
 import React from "react";
 import "./MainHeader.scss";
-import { useCookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { useBoolean } from "../../utils/customHooks/UseBoolean";

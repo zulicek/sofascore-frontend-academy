@@ -1,7 +1,7 @@
 import {fetchStarted, fetchSuccessful, fetchFailed} from "../actions/loginActions";
 import { login } from "../api/repository";
 
-export function loginUser(username, password, setCookie, setErrors) {
+export function loginUser(username, password) {
     
     return async function (dispatch) {
       dispatch(fetchStarted())
@@ -12,15 +12,9 @@ export function loginUser(username, password, setCookie, setErrors) {
       })
         .then((response) => {
           if (response.error) {
-            setErrors((prevErrors) => ({
-              ...prevErrors,
-              credentials: "Wrong credentials. Try again.",
-            }));
+            dispatch(fetchFailed(response.error))
           } else {
-            const userData = response
-            setCookie("token", userData.token);
-
-            return dispatch(fetchSuccessful(userData))
+            return dispatch(fetchSuccessful(response))
           }
         })
         .catch((error) => dispatch(fetchFailed(error)))

@@ -7,7 +7,6 @@ import { RegisterForm } from "./modules/Forms/RegisterForm/RegisterForm";
 import { UserProfile } from "./modules/UserProfile/UserProfile";
 import { Events } from "./modules/Events/Events";
 import { MainHeader } from "./components/MainHeader/MainHeader";
-import { useCookies } from "react-cookie";
 
 import data from "./leagues";
 
@@ -51,8 +50,7 @@ export function App() {
 }
 
 function ProtectedRoute({ children, ...routeProps }) {
-  const [cookies] = useCookies(["token"]);
-  const isLoggedIn = cookies.token !== "undefined";
+  const isLoggedIn = true;
 
   return isLoggedIn ? (
     <Route {...routeProps}>{children}</Route>
