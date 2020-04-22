@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import "../Form.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";
 import { Input } from "../../../components/Input/Input";
 import { useInputChange } from "../../../utils/customHooks/UseInputChange";
-import { useBoolean } from '../../../utils/customHooks/UseBoolean';
+import { useBoolean } from "../../../utils/customHooks/UseBoolean";
 import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
 import { Link, useHistory } from "react-router-dom";
 import { loginRequest } from "../../../api/repository";
-import { login} from "../../../actionCreators/sessionActionCreators";
+import { login } from "../../../actionCreators/sessionActionCreators";
 import { Loader } from "../../../components/Loader/Loader";
 
 const _LoginForm = () => {
@@ -37,26 +37,27 @@ const _LoginForm = () => {
               credentials: "Wrong credentials. Try again.",
             }));
           } else {
-            dispatch(login(response.user, response.token))
-            history.push("/")
+            dispatch(login(response.user, response.token));
+            history.push("/");
           }
+          setIsLoading(false);
         })
         .catch((error) => {
-          console.log(error)
+          console.log(error);
+          setIsLoading(false);
         });
-        setIsLoading(false);
     }
-  }, [errors, dispatch]);
+  }, [errors, dispatch, username, setIsLoading, password, history, submitted]);
 
   const onLogin = (e) => {
     e.preventDefault();
-    setSubmitted(true)
+    setSubmitted(true);
     setErrors(validateCredentials(username, password));
-  } 
-  
-  if (isLoading) return <Loader/>;
+  };
 
   return (
+    <>
+      {isLoading && <Loader />}
       <div className="form-wrapper">
         <form onSubmit={onLogin}>
           <Logo />
@@ -89,17 +90,22 @@ const _LoginForm = () => {
             <div className="error">{errors.credentials}</div>
           </div>
           <Button type="inverse">Log in</Button>
-          <p className="auth-link">You don't have an account? Register <Link to="/register">here</Link>.</p>
+          <p className="auth-link">
+            You don't have an account? Register <Link to="/register">here</Link>
+            .
+          </p>
         </form>
       </div>
+    </>
   );
-}
-
+};
 
 const mapDispatchToProps = (dispatch) => {
-  return { login: (user, token) => {
-    dispatch(login(user,token));
-  }}
-}
+  return {
+    login: (user, token) => {
+      dispatch(login(user, token));
+    },
+  };
+};
 
-export const LoginForm = connect(null, mapDispatchToProps)(_LoginForm)
+export const LoginForm = connect(null, mapDispatchToProps)(_LoginForm);

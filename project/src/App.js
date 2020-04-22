@@ -8,7 +8,6 @@ import { UserProfile } from "./modules/UserProfile/UserProfile";
 import { Events } from "./modules/Events/Events";
 import { MainHeader } from "./components/MainHeader/MainHeader";
 import { useSelector, connect } from "react-redux";
-import { createBrowserHistory } from 'history';
 
 export function App() {
 

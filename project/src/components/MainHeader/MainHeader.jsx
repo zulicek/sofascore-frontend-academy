@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import "./MainHeader.scss";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { useBoolean } from "../../utils/customHooks/UseBoolean";
 import { useDispatch, connect } from "react-redux";
@@ -9,7 +9,6 @@ import { logout } from "../../actionCreators/sessionActionCreators";
 function _MainHeader() {
   const [isOpen, toggleOpen] = useBoolean();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const onLogout = useCallback(() => {
     dispatch(logout());
