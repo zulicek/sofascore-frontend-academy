@@ -112,7 +112,11 @@ header {
         }
     }
 
-    @media (min-width: 576px) {
-      
+    @media (min-width: 991px) {
+      left: 0;
+
+      #mainnav-toggle {
+          display: none;
+      }
     }
 }

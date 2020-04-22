@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 export function LeaguesList({title, leagues}) {
     return (
       <>
-        <h2>{title}</h2>
+        <h1>{title}</h1>
         {leagues && 
           <ul>
             {leagues.map((league) => 

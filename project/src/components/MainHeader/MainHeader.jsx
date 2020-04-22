@@ -21,7 +21,7 @@ export function MainHeader() {
               <NavLink to="/">Leagues</NavLink>
             </li>
             <li>
-              <NavLink to="/">Events</NavLink>
+              <NavLink to="/events">Events</NavLink>
             </li>
             <li>
               <NavLink to="/profile">Profile</NavLink>

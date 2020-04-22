@@ -5,6 +5,7 @@ import { Leagues } from "./modules/Leagues/Leagues";
 import { LoginForm } from "./modules/Forms/LoginForm/LoginForm";
 import { RegisterForm } from "./modules/Forms/RegisterForm/RegisterForm";
 import { UserProfile } from "./modules/UserProfile/UserProfile";
+import { Events } from "./modules/Events/Events";
 import { MainHeader } from "./components/MainHeader/MainHeader";
 import { useCookies } from "react-cookie";
 
@@ -28,10 +29,14 @@ export function App() {
             <MainHeader />
           </ProtectedRoute>
         </Switch>
-
+      </main>
+      <main className="app-main">
         <Switch>
           <ProtectedRoute exact path="/">
             <Leagues />
+          </ProtectedRoute>
+          <ProtectedRoute path="/events">
+            <Events />
           </ProtectedRoute>
           <ProtectedRoute path="/profile">
             <UserProfile />
