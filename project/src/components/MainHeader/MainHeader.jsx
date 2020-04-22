@@ -10,7 +10,7 @@ export function MainHeader() {
   return (
     <>
       <header className={`${isOpen ? "opened" : ""}`}>
-        <NavLink exact to="/">
+        <NavLink to="/profile">
           <Logo />
         </NavLink>
         <div className="name username">ivanhorvat</div>
@@ -26,7 +26,7 @@ export function MainHeader() {
             <li>
               <NavLink to="/profile">Profile</NavLink>
             </li>
-            <li>
+            <div className="logout">
               <NavLink
                 to="/logout"
                 onClick={() => {
@@ -35,8 +35,9 @@ export function MainHeader() {
               >
                 Log out
               </NavLink>
-            </li>
+            </div>
           </ul>
+          
         </nav>
         <div id="mainnav-toggle" onClick={toggleOpen}>
           <span className="hamburger"></span>

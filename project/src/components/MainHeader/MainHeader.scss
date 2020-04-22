@@ -35,6 +35,13 @@ header {
 
     nav {
         margin-top: 36px;
+        height: 100%;
+    }
+
+    ul {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     a {
@@ -50,6 +57,10 @@ header {
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    .logout {
+        margin: auto 0;
     }
 
     #mainnav-toggle {

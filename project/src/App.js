@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 import { Leagues } from "./modules/Leagues/Leagues";
-import { UserLeagues } from "./modules/UserLeagues/UserLeagues";
 import { LoginForm } from "./modules/Forms/LoginForm/LoginForm";
 import { RegisterForm } from "./modules/Forms/RegisterForm/RegisterForm";
 import { UserProfile } from "./modules/UserProfile/UserProfile";
