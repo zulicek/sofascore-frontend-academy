@@ -21,7 +21,7 @@ export function Accordion({ name, type, startDate, location, surface, competitor
       />
       <Content
         ref={contentRef}
-        height={isOpen ? `${contentRef.current.scrollHeight}px` : "0px"}
+        height={isOpen ? contentRef.current.scrollHeight : 0}
         location={location}
         competitors={competitors}
       />

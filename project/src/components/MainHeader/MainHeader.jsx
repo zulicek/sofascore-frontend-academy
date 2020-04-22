@@ -2,40 +2,46 @@ import React from "react";
 import "./MainHeader.scss";
 import { useCookies } from "react-cookie";
 import { NavLink } from "react-router-dom";
+import { Logo } from "../Logo/Logo";
+import { useBoolean } from "../../utils/customHooks/UseBoolean";
 
 export function MainHeader() {
-  const [cookies, removeCookie] = useCookies(["token"]);
+  const [isOpen, toggleOpen] = useBoolean();
   return (
-    <header>
-      {cookies.token !== "undefined" && (
-        <ul>
-          <li>
-            <NavLink exact to="/">
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/leagues">Leagues</NavLink>
-          </li>
-          <li>
-            <NavLink to="/myleagues">My leagues</NavLink>
-          </li>
-          <li>
-            <NavLink to="/profile">Profile</NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/logout"
-              onClick={() => {
-                removeCookie("token");
-                window.location = "/login";
-              }}
-            >
-              Log out
-            </NavLink>
-          </li>
-        </ul>
-      )}
-    </header>
+    <>
+      <header className={`${isOpen ? "opened" : ""}`}>
+        <NavLink exact to="/">
+          <Logo />
+        </NavLink>
+        <div className="name username">ivanhorvat</div>
+        <div className="name">Ivan Horvat</div>
+        <nav role="navigation">
+          <ul>
+            <li>
+              <NavLink to="/">Leagues</NavLink>
+            </li>
+            <li>
+              <NavLink to="/">Events</NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile">Profile</NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/logout"
+                onClick={() => {
+                  window.location = "/login";
+                }}
+              >
+                Log out
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <div id="mainnav-toggle" onClick={toggleOpen}>
+          <span className="hamburger"></span>
+        </div>
+      </header>
+    </>
   );
 }
