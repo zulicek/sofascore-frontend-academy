@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
 import "../Form.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";
@@ -8,25 +8,45 @@ import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from '../../../utils/customHooks/UseBoolean';
 import { validateCredentials } from "./../../../utils/validations/validateCredentials.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
-import { loginUser } from "./../../../actionCreators/loginActionCreator";
-import { Link, Redirect } from "react-router-dom";
-import { Loader } from "../../../components/Loader/Loader"
+import { Link, useHistory } from "react-router-dom";
+import { loginRequest } from "../../../api/repository";
+import { login} from "../../../actionCreators/sessionActionCreators";
+import { Loader } from "../../../components/Loader/Loader";
 
-
-export function LoginForm() {
+const _LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
   const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const [submitted, setSubmitted] = useState(false);
-  const { loginData } = useSelector(state => state)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useBoolean(false);
 
   useEffect(() => {
     if (submitted && isObjectEmpty(errors)) {
-      dispatch(loginUser(username, password, setErrors))
+      setIsLoading(true);
+      loginRequest({
+        username: username,
+        password: password,
+      })
+        .then((response) => {
+          if (response.error) {
+            setErrors((prevErrors) => ({
+              ...prevErrors,
+              credentials: "Wrong credentials. Try again.",
+            }));
+          } else {
+            dispatch(login(response.user, response.token))
+            history.push("/")
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+        setIsLoading(false);
     }
-  }, [username, password, dispatch, errors]);
+  }, [errors, dispatch]);
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -34,9 +54,7 @@ export function LoginForm() {
     setErrors(validateCredentials(username, password));
   } 
   
-  if (loginData.isLoading) return <Loader/>;
-
-  if (loginData.user) return <Redirect to="/" />;
+  if (isLoading) return <Loader/>;
 
   return (
       <div className="form-wrapper">
@@ -48,6 +66,7 @@ export function LoginForm() {
             icon="fa fa-user"
             type="text"
             onChange={handleUsernameChange}
+            value={username}
           />
           <div className="error">{errors.username}</div>
 
@@ -56,6 +75,7 @@ export function LoginForm() {
             icon="fa fa-lock"
             type={show ? "text" : "password"}
             onChange={handlePasswordChange}
+            value={password}
             iconDecoration={
               <div className="show-password" onClick={toggleShow}>
                 <i className="fa fa-eye" aria-hidden="true"></i>
@@ -74,3 +94,12 @@ export function LoginForm() {
       </div>
   );
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return { login: (user, token) => {
+    dispatch(login(user,token));
+  }}
+}
+
+export const LoginForm = connect(null, mapDispatchToProps)(_LoginForm)

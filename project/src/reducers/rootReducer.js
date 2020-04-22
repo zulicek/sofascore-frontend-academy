@@ -1,4 +1,6 @@
 import { combineReducers } from "redux";
-import { loginReducer } from "./loginReducer";
+import { session } from "./sessionReducer";
 
-export const rootReducer = combineReducers({ loginData: loginReducer });
+export const rootReducer = combineReducers({
+    session
+  });

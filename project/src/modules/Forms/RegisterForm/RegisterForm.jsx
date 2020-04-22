@@ -8,7 +8,7 @@ import { useInputChange } from "../../../utils/customHooks/UseInputChange";
 import { useBoolean } from "../../../utils/customHooks/UseBoolean";
 import { validateRegister } from "./../../../utils/validations/validateRegister.js";
 import { isObjectEmpty } from "./../../../utils/helpers.js";
-import { register } from "../../../api/repository";
+import { registerRequest } from "../../../api/repository";
 import { Link } from "react-router-dom";
 
 export function RegisterForm() {
@@ -25,7 +25,7 @@ export function RegisterForm() {
 
   useEffect(() => {
     if (submitted && isObjectEmpty(errors)) {
-      register({
+      registerRequest({
         username: username,
         password: password,
       })

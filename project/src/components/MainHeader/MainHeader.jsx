@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "./MainHeader.scss";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { useBoolean } from "../../utils/customHooks/UseBoolean";
+import { useDispatch, connect } from "react-redux";
+import { logout } from "../../actionCreators/sessionActionCreators";
 
-export function MainHeader() {
+function _MainHeader() {
   const [isOpen, toggleOpen] = useBoolean();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch])
+
   return (
     <>
       <header className={`${isOpen ? "opened" : ""}`}>
@@ -25,18 +34,10 @@ export function MainHeader() {
             <li>
               <NavLink to="/profile">Profile</NavLink>
             </li>
-            <div className="logout">
-              <NavLink
-                to="/logout"
-                onClick={() => {
-                  window.location = "/login";
-                }}
-              >
-                Log out
-              </NavLink>
-            </div>
+            <li className="logout"> 
+              <span onClick={onLogout}>Log out</span>
+            </li>
           </ul>
-          
         </nav>
         <div id="mainnav-toggle" onClick={toggleOpen}>
           <span className="hamburger"></span>
@@ -45,3 +46,13 @@ export function MainHeader() {
     </>
   );
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: () => {
+      dispatch(logout());
+    },
+  };
+}
+
+export const MainHeader = connect(null, mapDispatchToProps)(_MainHeader);

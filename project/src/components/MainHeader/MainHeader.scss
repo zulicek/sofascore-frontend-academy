@@ -1,50 +1,53 @@
 @import "./../../variables.scss";
 
 header {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 300px;
-    left: calc(56px - 300px);
-    transition: all ease-in-out 0.5s;
-    z-index: 9997;
-    transition: all 0.5s;
-    padding: 48px 15px;
-    background: $primary-color;
-    overflow-y: auto;
-    box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  left: calc(56px - 300px);
+  transition: all ease-in-out 0.5s;
+  z-index: 9997;
+  transition: all 0.5s;
+  padding: 48px 15px 0;
+  background: $primary-color;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 
-    .logo-wrapper {
-        height: 120px;
-        width: 120px;
+  .logo-wrapper {
+    height: 120px;
+    width: 120px;
+  }
+
+  .name {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    font-family: $font-family-titles;
+    color: $white;
+    text-align: center;
+    margin-bottom: 8px;
+    &.username {
+      font-size: 18px;
     }
+  }
 
-    .name {
-        font-size: 24px;
-        margin: 0;
-        padding: 0;
-        font-weight: 600;
-        font-family: $font-family-titles;
-        color: $white;
-        text-align: center;
-        margin-bottom: 8px;
-        &.username {
-            font-size: 18px;
-        }
-    }
+  nav {
+    margin-top: 36px;
+    display: flex;
+    flex-grow: 1;
+  }
 
-    nav {
-        margin-top: 36px;
-        height: 100%;
-    }
+  ul {
+    display: flex;
+    flex-direction: column;
 
-    ul {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    a {
+    li {
+      a,
+      span {
         display: flex;
         align-items: center;
         color: $white;
@@ -55,68 +58,72 @@ header {
         text-decoration: none;
         font-weight: 500;
         &:hover {
-            text-decoration: underline;
+          text-decoration: underline;
         }
-    }
-
-    .logout {
-        margin: auto 0;
-    }
-
-    #mainnav-toggle {
-        display: block;
-        cursor: pointer;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 56px;
-        height: 56px;
-        .hamburger {
-            display: block;
-            width: 20px;
-            height: 3px;
-            background: $white;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin: -1px 0 0 -10px;
-            &:before, &:after {
-                display: block;
-                content: "";
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                background: $white;
-            }
-            &:before {
-                top: -6px;
-            }
-            &:after {
-                bottom: -6px;
-            }
-        }
-    }
-
-    &.opened {
-        left: 0;
-        #mainnav-toggle {
-            .hamburger {
-                background: transparent;
-                &:before {
-                    transform: translateY(6px) rotate(135deg);
-                }
-                &:after {
-                    transform: translateY(-6px) rotate(-135deg);
-                }
-            }
-        }
-    }
-
-    @media (min-width: 991px) {
-      left: 0;
-
-      #mainnav-toggle {
-          display: none;
       }
     }
+  }
+
+  .logout {
+    margin: auto 0 0;
+    cursor: pointer;
+  }
+
+  #mainnav-toggle {
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 56px;
+    height: 56px;
+    .hamburger {
+      display: block;
+      width: 20px;
+      height: 3px;
+      background: $white;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -1px 0 0 -10px;
+      &:before,
+      &:after {
+        display: block;
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: $white;
+      }
+      &:before {
+        top: -6px;
+      }
+      &:after {
+        bottom: -6px;
+      }
+    }
+  }
+
+  &.opened {
+    left: 0;
+    #mainnav-toggle {
+      .hamburger {
+        background: transparent;
+        &:before {
+          transform: translateY(6px) rotate(135deg);
+        }
+        &:after {
+          transform: translateY(-6px) rotate(-135deg);
+        }
+      }
+    }
+  }
+
+  @media (min-width: 991px) {
+    left: 0;
+
+    #mainnav-toggle {
+      display: none;
+    }
+  }
 }

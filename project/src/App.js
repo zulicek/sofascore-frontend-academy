@@ -7,10 +7,11 @@ import { RegisterForm } from "./modules/Forms/RegisterForm/RegisterForm";
 import { UserProfile } from "./modules/UserProfile/UserProfile";
 import { Events } from "./modules/Events/Events";
 import { MainHeader } from "./components/MainHeader/MainHeader";
-
-import data from "./leagues";
+import { useSelector, connect } from "react-redux";
+import { createBrowserHistory } from 'history';
 
 export function App() {
+
   return (
     <BrowserRouter>
       <main>
@@ -49,12 +50,19 @@ export function App() {
   );
 }
 
-function ProtectedRoute({ children, ...routeProps }) {
-  const isLoggedIn = true;
+function _ProtectedRoute({ children, ...routeProps }) {
+  const token = useSelector(state => state.session.token)
 
-  return isLoggedIn ? (
+  return token ? (
     <Route {...routeProps}>{children}</Route>
   ) : (
     <Redirect to="/login" />
   );
 }
+
+function mapStateToProps(state) {
+  return { user: state.user }
+}
+
+
+const ProtectedRoute = connect(mapStateToProps)(_ProtectedRoute)

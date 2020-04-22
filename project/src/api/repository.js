@@ -1,9 +1,9 @@
 import { postJson} from './APIutils';
 
-export function login(loginRequest) {
+export function loginRequest(loginRequest) {
     return postJson("/api/login", loginRequest);
 }
 
-export function register(registerRequest) {
+export function registerRequest(registerRequest) {
     return postJson("/api/register", registerRequest);
 }

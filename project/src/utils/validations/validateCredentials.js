@@ -8,6 +8,6 @@ export const validateCredentials = (username, password) => {
     if (!password) {
     errors.password = "Password can't be empty"
     }
-
+    
     return errors;
 }
