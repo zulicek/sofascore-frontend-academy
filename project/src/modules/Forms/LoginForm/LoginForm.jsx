@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, connect } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "../Form.scss";
 import { Logo } from "../../../components/Logo/Logo";
 import { Button } from "../../../components/Button/Button";

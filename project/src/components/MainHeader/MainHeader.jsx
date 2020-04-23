@@ -3,7 +3,7 @@ import "./MainHeader.scss";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { useBoolean } from "../../utils/customHooks/UseBoolean";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { logout } from "../../actionCreators/sessionActionCreators";
 
 export function MainHeader() {
