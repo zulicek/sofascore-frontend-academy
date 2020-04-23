@@ -40,9 +40,9 @@ export function App() {
           <ProtectedRoute path="/profile">
             <UserProfile />
           </ProtectedRoute>
-          <Route path="*">
+          <ProtectedRoute path="*">
             <h1>404 - page not found</h1>
-          </Route>
+          </ProtectedRoute>
         </Switch>
       </main>
     </BrowserRouter>

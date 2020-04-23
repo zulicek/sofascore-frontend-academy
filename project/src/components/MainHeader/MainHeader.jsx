@@ -6,7 +6,7 @@ import { useBoolean } from "../../utils/customHooks/UseBoolean";
 import { useDispatch, connect } from "react-redux";
 import { logout } from "../../actionCreators/sessionActionCreators";
 
-function _MainHeader() {
+export function MainHeader() {
   const [isOpen, toggleOpen] = useBoolean();
   const dispatch = useDispatch();
 
@@ -45,13 +45,3 @@ function _MainHeader() {
     </>
   );
 }
-
-function mapDispatchToProps(dispatch) {
-  return {
-    logout: () => {
-      dispatch(logout());
-    },
-  };
-}
-
-export const MainHeader = connect(null, mapDispatchToProps)(_MainHeader);

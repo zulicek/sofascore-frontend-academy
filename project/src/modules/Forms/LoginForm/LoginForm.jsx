@@ -13,7 +13,7 @@ import { loginRequest } from "../../../api/repository";
 import { login } from "../../../actionCreators/sessionActionCreators";
 import { Loader } from "../../../components/Loader/Loader";
 
-const _LoginForm = () => {
+export const LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
   const [errors, setErrors] = useState({});
@@ -99,13 +99,3 @@ const _LoginForm = () => {
     </>
   );
 };
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (user, token) => {
-      dispatch(login(user, token));
-    },
-  };
-};
-
-export const LoginForm = connect(null, mapDispatchToProps)(_LoginForm);
