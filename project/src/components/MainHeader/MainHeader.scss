@@ -2,14 +2,15 @@
 
 header {
   position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 300px;
-  left: calc(56px - 300px);
+  right: 0;
+  bottom: unset;
+  width: 100%;
+  left: 0;
+  height: 56px;
   transition: all ease-in-out 0.5s;
   z-index: 9997;
   transition: all 0.5s;
-  padding: 48px 15px 0;
+  padding: 56px 15px 0;
   background: $primary-color;
   overflow-y: auto;
   box-sizing: border-box;
@@ -107,6 +108,7 @@ header {
 
   &.opened {
     left: 0;
+    height: 100%;
     #mainnav-toggle {
       .hamburger {
         background: transparent;
@@ -120,9 +122,16 @@ header {
     }
   }
 
+  @media (min-width: 767px) {
+    left: calc(56px - 300px);
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    height: 100%;
+  }
+
   @media (min-width: 991px) {
     left: 0;
-
     #mainnav-toggle {
       display: none;
     }
