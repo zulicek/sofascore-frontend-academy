@@ -16,15 +16,19 @@ import { Loader } from "../../../components/Loader/Loader";
 export const LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState();
   const [show, toggleShow] = useBoolean(false);
-  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoading, setIsLoading] = useBoolean(false);
 
-  useEffect(() => {
-    if (submitted && isObjectEmpty(errors)) {
+
+  const onLogin = (e) => {
+    e.preventDefault();
+    const errs = validateCredentials(username, password)
+    setErrors(errs);
+
+    if (isObjectEmpty(errs)) {
       setIsLoading(true);
       loginRequest({
         username: username,
@@ -47,12 +51,6 @@ export const LoginForm = () => {
           setIsLoading(false);
         });
     }
-  }, [errors, dispatch, username, setIsLoading, password, history, submitted]);
-
-  const onLogin = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setErrors(validateCredentials(username, password));
   };
 
   return (
@@ -69,7 +67,7 @@ export const LoginForm = () => {
             onChange={handleUsernameChange}
             value={username}
           />
-          <div className="error">{errors.username}</div>
+          <div className="error">{errors && errors.username}</div>
 
           <Input
             name="Password"
@@ -84,10 +82,10 @@ export const LoginForm = () => {
               </div>
             }
           />
-          <div className="error">{errors.password}</div>
+          <div className="error">{errors && errors.password}</div>
 
           <div className="error-wrapper">
-            <div className="error">{errors.credentials}</div>
+            <div className="error">{errors && errors.credentials}</div>
           </div>
           <Button type="inverse">Log in</Button>
           <p className="auth-link">
