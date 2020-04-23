@@ -16,7 +16,7 @@ import { Loader } from "../../../components/Loader/Loader";
 export const LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -40,11 +40,12 @@ export const LoginForm = () => {
               ...prevErrors,
               credentials: "Wrong credentials. Try again.",
             }));
+            setIsLoading(false);
           } else {
             dispatch(login(response.user, response.token));
+            setIsLoading(false);
             history.push("/");
           }
-          setIsLoading(false);
         })
         .catch((error) => {
           console.log(error);
