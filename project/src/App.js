@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 import { Leagues } from "./modules/Leagues/Leagues";
@@ -11,16 +11,27 @@ import { useSelector, connect } from "react-redux";
 import { logout } from "./actionCreators/sessionActionCreators"
 import { useDispatch } from "react-redux";
 import { checkTokenRequest } from "./api/repository";
-import { useBoolean } from "./utils/customHooks/UseBoolean";
-import { Loader } from "./components/Loader/Loader";
 
 export function App() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const keepLoggedIn = useSelector(state => state.session.keepLoggedIn)
+  const token = useSelector(state => state.session.token) 
 
   if (!user && !keepLoggedIn && !sessionStorage.getItem('keepLoggedIn')) {
     dispatch(logout());
+  } else {
+    checkTokenRequest({
+      token: token
+    })
+      .then((response) => {
+        if (response.error) {
+          dispatch(logout());
+        } 
+      })
+      .catch(() => {
+        dispatch(logout());
+      });
   }
 
   return (
@@ -62,37 +73,9 @@ export function App() {
 }
 
 function _ProtectedRoute({ children, ...routeProps }) {
-  const [isLoading, setIsLoading] = useBoolean(false);
-  const [errors, setErrors] = useState({});
   const token = useSelector(state => state.session.token) 
-  let isAuthorized = false;
-  let checkedToken = false;
-
-  if (token && !checkedToken) {
-    checkTokenRequest({
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWQiOiI1ZTg3MjZlN2JhYWU5NjQzNjFjODA0NTYiLCJpYXQiOjE1ODc5MDkzNzIsImV4cCI6MTU4OTcyMzc3MiwiaXNzIjoicHJpdmF0ZS1sZWFndWVzLWFwaSJ9.NWwvct9FIhbVSyRTbsXEBqgzuQhcLNsYVQQvNXnBsGo"
-    })
-      .then((response) => {
-        console.log(response)
-        if (response.error) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            token: "Wrong token. Try again.",
-          }));
-          isAuthorized = false;
-        } else {
-          isAuthorized = true;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  checkedToken = true; 
-
-  console.log(checkedToken, isAuthorized, token)
   
-  return checkedToken && isAuthorized && token ? (
+  return token ? (
     <Route {...routeProps}>{children}</Route>
   ) : (
     <Redirect to="/login" />
