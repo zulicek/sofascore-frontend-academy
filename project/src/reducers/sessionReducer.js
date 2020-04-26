@@ -1,3 +1,7 @@
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
+
+
 export const sessionReducer = (state = {}, action) => {
   switch (action.type) {
     case "LOGIN":
@@ -8,3 +12,12 @@ export const sessionReducer = (state = {}, action) => {
       return state;
   }
 };
+
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['token'],
+}
+  
+export const persistedSessionReducer = persistReducer(persistConfig, sessionReducer);
