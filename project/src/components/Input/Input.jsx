@@ -15,7 +15,7 @@ export function Input({ name, icon, type, onChange, iconDecoration, value, check
           onChange(event.currentTarget.value);
         }}
       />
-      <i className={icon} aria-hidden="true"></i>
+      {icon && <i className={icon} aria-hidden="true"></i>}
       <label id={name} htmlFor={name}>{name}</label>
       {iconDecoration}
     </div>

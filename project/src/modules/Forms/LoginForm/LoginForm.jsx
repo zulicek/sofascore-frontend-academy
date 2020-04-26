@@ -16,6 +16,7 @@ import { Loader } from "../../../components/Loader/Loader";
 export const LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
+  const [rememberData, handleRememeberDataChange] = useBoolean(false);
   const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const dispatch = useDispatch();
@@ -84,6 +85,14 @@ export const LoginForm = () => {
             }
           />
           <div className="error">{errors && errors.password}</div>
+
+          <Input
+            name="Remember me"
+            type="checkbox"
+            value="remember"
+            onChange={handleRememeberDataChange}
+            checked={rememberData}
+          />
 
           <div className="error-wrapper">
             <div className="error">{errors && errors.credentials}</div>
