@@ -16,7 +16,7 @@ import { Loader } from "../../../components/Loader/Loader";
 export const LoginForm = () => {
   const [username, handleUsernameChange] = useInputChange("");
   const [password, handlePasswordChange] = useInputChange("");
-  const [rememberData, handleRememeberDataChange] = useBoolean(false);
+  const [keepLoggedIn, handlekeepLoggedInChange] = useBoolean(false);
   const [errors, setErrors] = useState({});
   const [show, toggleShow] = useBoolean(false);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export const LoginForm = () => {
       setIsLoading(true);
       loginRequest({
         username: username,
-        password: password,
+        password: password
       })
         .then((response) => {
           if (response.error) {
@@ -43,7 +43,7 @@ export const LoginForm = () => {
             }));
             setIsLoading(false);
           } else {
-            dispatch(login(response.user, response.token));
+            dispatch(login(response.user, response.token,  keepLoggedIn));
             setIsLoading(false);
             history.push("/");
           }
@@ -87,11 +87,11 @@ export const LoginForm = () => {
           <div className="error">{errors && errors.password}</div>
 
           <Input
-            name="Remember me"
+            name="Keep me logged in"
             type="checkbox"
             value="remember"
-            onChange={handleRememeberDataChange}
-            checked={rememberData}
+            onChange={handlekeepLoggedInChange}
+            checked={keepLoggedIn}
           />
 
           <div className="error-wrapper">

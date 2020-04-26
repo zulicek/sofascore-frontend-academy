@@ -5,9 +5,11 @@ import storage from 'redux-persist/lib/storage';
 export const sessionReducer = (state = {}, action) => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, user: action.user, token: action.token };
+      !action.keepLoggedIn && sessionStorage.setItem('keepLoggedIn',action.keepLoggedIn);
+      return { ...state, user: action.user, token: action.token, keepLoggedIn: action.keepLoggedIn };
     case "LOGOUT":
-      return { ...state, user: null, token: null};
+      sessionStorage.removeItem('keepLoggedIn');
+      return { ...state, user: null, token: null, keepLoggedIn: false,};
     default:
       return state;
   }
@@ -15,9 +17,9 @@ export const sessionReducer = (state = {}, action) => {
 
 
 const persistConfig = {
-    key: 'root',
+    key: 'session',
     storage,
-    whitelist: ['token'],
+    whitelist: ['token', 'keepLoggedIn'],
 }
   
 export const persistedSessionReducer = persistReducer(persistConfig, sessionReducer);
