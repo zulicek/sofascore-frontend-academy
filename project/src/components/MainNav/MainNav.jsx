@@ -1,18 +1,18 @@
 import React, { useCallback } from "react";
-import "./MainHeader.scss";
+import "./MainNav.scss";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../Logo/Logo";
 import { useBoolean } from "../../utils/customHooks/UseBoolean";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actionCreators/sessionActionCreators";
 
-export function MainHeader() {
+export function MainNav() {
   const [isOpen, toggleOpen] = useBoolean();
   const dispatch = useDispatch();
 
   const onLogout = useCallback(() => {
     dispatch(logout());
-  }, [dispatch])
+  }, [dispatch]);
 
   return (
     <>
@@ -25,16 +25,26 @@ export function MainHeader() {
         <nav role="navigation">
           <ul>
             <li>
-              <NavLink to="/">Leagues</NavLink>
+              <NavLink exact to="/">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <div>Leagues</div>
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/events">Events</NavLink>
+              <NavLink to="/events">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <div>Events</div>
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/profile">Profile</NavLink>
+              <NavLink to="/profile">
+                <i className="fa fa-user" aria-hidden="true"></i>
+                <div>Profile</div>
+              </NavLink>
             </li>
-            <li className="logout"> 
-              <span onClick={onLogout}>Log out</span>
+            <li className="logout" onClick={onLogout}>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span>Log out</span>
             </li>
           </ul>
         </nav>

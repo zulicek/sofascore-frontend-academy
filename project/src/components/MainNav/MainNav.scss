@@ -2,6 +2,7 @@
 
 header {
   position: fixed;
+  top: 0;
   right: 0;
   bottom: unset;
   width: 100%;
@@ -48,20 +49,37 @@ header {
     flex-direction: column;
 
     li {
+      margin-bottom: 8px;
       a,
       span {
         display: flex;
         align-items: center;
         color: $white;
         padding: 12px 15px;
-        margin-bottom: 8px;
-        transition: 0.3s;
         font-size: 15px;
         text-decoration: none;
         font-weight: 500;
+        position: relative;
         &:hover {
           text-decoration: underline;
         }
+        &.active {
+          text-decoration: underline;
+        }
+      }
+
+      a, &.logout {
+        &:hover,  &.active {
+          i.fa {
+            color: $tertiary-color;
+          }     
+        }
+      }
+
+      i.fa {
+        position: absolute;
+        right: 4px;
+        font-size: 20px;
       }
     }
   }
@@ -69,6 +87,13 @@ header {
   .logout {
     margin: auto 0 0;
     cursor: pointer;
+    position: relative;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   #mainnav-toggle {
@@ -104,6 +129,13 @@ header {
         bottom: -6px;
       }
     }
+    &:hover {
+      .hamburger {
+        &, &:before, &:after {
+          background: $tertiary-color;
+        }
+      }
+    }
   }
 
   &.opened {
@@ -120,6 +152,11 @@ header {
         }
       }
     }
+    li {
+      i.fa {
+        right: 4px;
+      }
+    }
   }
 
   @media (min-width: 767px) {
@@ -128,12 +165,12 @@ header {
     bottom: 0;
     width: 300px;
     height: 100%;
-  }
-
-  @media (min-width: 991px) {
-    left: 0;
-    #mainnav-toggle {
-      display: none;
+    li {
+      i.fa {
+        position: absolute;
+        right: 4px;
+        font-size: 20px;
+      }
     }
   }
 }
