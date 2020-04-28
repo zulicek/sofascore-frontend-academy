@@ -26,13 +26,13 @@ export function MainNav() {
           <ul>
             <li>
               <NavLink exact to="/">
-                <i class="fa fa-trophy" aria-hidden="true"></i>
+                <i className="fa fa-trophy" aria-hidden="true"></i>
                 <div>Leagues</div>
               </NavLink>
             </li>
             <li>
               <NavLink to="/events">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <i className="fa fa-calendar" aria-hidden="true"></i>
                 <div>Events</div>
               </NavLink>
             </li>
@@ -43,7 +43,7 @@ export function MainNav() {
               </NavLink>
             </li>
             <li className="logout" onClick={onLogout}>
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <i className="fa fa-sign-out" aria-hidden="true"></i>
                 <span>Log out</span>
             </li>
           </ul>
