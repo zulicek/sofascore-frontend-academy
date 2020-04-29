@@ -6,7 +6,7 @@ export function useInputChange(newValue) {
   
     const handleInputChange = useCallback((newValue) => {
       setValue(newValue)
-    }, [newValue])
+    }, [])
     
     return [value, handleInputChange];
   }

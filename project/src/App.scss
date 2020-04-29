@@ -1,1 +1,16 @@
 @import "./variables.scss";
+
+
+.app-main {
+    margin-left: 56px;
+    padding: 30px;
+
+    h1 {
+        text-align: right;
+    }
+
+    @media (min-width: 991px) {
+        
+        margin-left: 56px;
+    }
+}

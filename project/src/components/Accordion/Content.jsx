@@ -3,7 +3,7 @@ import React from "react";
 export const Content = React.forwardRef(
   ({ height, location, competitors }, ref) => {
     return (
-      <div className="accordion-content" ref={ref} style={{ height: height }}>
+      <div className="accordion-content" ref={ref} style={{ height }}>
         <div className="location-data">
           <h3 className="title">Location info:</h3>
           <p>{location.name}</p>
@@ -14,7 +14,7 @@ export const Content = React.forwardRef(
           <h3 className="title">Competitors</h3>
           <ul>
             {competitors.map((competitor) => (
-              <li>
+              <li key={competitor.id}>
                 {competitor.lastName}, {competitor.name}, {competitor.points}
               </li>
             ))}

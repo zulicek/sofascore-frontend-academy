@@ -87,7 +87,52 @@
         }
       }
     }
+
+    &[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+      & + label {
+        display: block;
+        position: relative;
+        padding-left: 32px;
+        font-size: 16px;
+        margin-top: 48px;
+        cursor: pointer;
+        width: 100%;
+        left: 0;
+        &:before {
+          display: block;
+          content: "";
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          height: 16px;
+          width: 16px;
+          background-color: $primary-color;
+        }
+        &::after {
+          display: none;
+          content: "";
+          position: absolute;
+          left: 5px;
+          top: 3px;
+          width: 3px;
+          height: 8px;
+          border: solid white;
+          border-width: 0 3px 3px 0;
+          transform: rotate(45deg);
+        }
+      }
+      &:checked + label:after {
+        display: block;
+      }
+    }
   }
+  
   .show-password {
     position: absolute;
     right: 0;

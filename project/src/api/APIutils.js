@@ -6,6 +6,7 @@ const request = options => {
 
   return fetch(options.url, opt)
     .then(response => {
+      if (response.status === 204) return true;
       return response.json();
     })
     .catch(error => {

@@ -5,7 +5,7 @@ export function useBoolean() {
 
     const toggleBoolean = useCallback(() => {
         setIsTrue(state => !state)
-    }, [isTrue])
+    }, [])
     
     return [isTrue, toggleBoolean];
 }
